@@ -1,0 +1,18 @@
+{
+	"name": "event-management",
+	"version": "0.0.1",
+	"description": "A simple CRUD app",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"setup-project": "cd server && npm i && cd ../client && npm i",
+		"client": "npm run dev --prefix client",
+		"server": "npm run dev --prefix server --ignore client/",
+		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+	},
+	"author": "Michael Park",
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^8.2.0"
+	}
+}
