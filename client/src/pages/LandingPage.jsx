@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
+
 const LandingPage = () => {
 	return (
-		<div>Landing Page</div>
+		<div>Landing Page <Link to="/login">Login</Link></div>
 	);
 };
 

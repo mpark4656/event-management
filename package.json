@@ -5,10 +5,11 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"setup-project": "npm i && cd server && npm i && cd ../client && npm i",
+		"setup-project": "npm i && cd server && npm i && cd ../client && npm i && npm run build",
 		"client": "npm run dev --prefix client",
 		"server": "npm run dev --prefix server --ignore client/",
-		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+		"prod": "npm run server"
 	},
 	"author": "Michael Park",
 	"license": "ISC",
