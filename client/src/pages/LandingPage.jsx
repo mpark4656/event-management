@@ -60,7 +60,7 @@ const LandingPage = () => {
 						</p>
 						<p>
 							Brings all the tasks and deadlines together onto a
-							visual platform that helps you plan, schedule, and accounce
+							visual platform that helps you plan, schedule, and announce
 							your events.
 						</p>
 						<div className="card-container">
