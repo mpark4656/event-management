@@ -82,6 +82,7 @@ const LandingWrapper = styled.main`
 		padding: 0.5em 2em;
 		color: white;
 		text-decoration: none;
+		text-transform: capitalize;
 		cursor: pointer;
 	}
 	.btn-login {
@@ -96,6 +97,13 @@ const LandingWrapper = styled.main`
 	.btn-register:hover {
 		background-color: #d44208;
 	}
+	.btn-source {
+		background-color: var(--white);
+		color: var(--black);
+	}
+	.btn-source:hover {
+		background-color: var(--grey-300);
+	}
 	.hamburger-menu {
 		cursor: pointer;
 		font-size: 2em;
@@ -107,7 +115,6 @@ const LandingWrapper = styled.main`
 	.about {
 		width: 80%;
 		margin: auto;
-		margin-bottom: 1em;
 		display: grid;
 		grid-template-areas: "description image";
 		gap: 1em;
@@ -182,6 +189,11 @@ const LandingWrapper = styled.main`
 	}
 	.img-container img {
 		width: 90%;
+	}
+	.source {
+		margin: 3em;
+		display: flex;
+		justify-content: center;
 	}
 	@media (width < 1500px) {
 		.about {

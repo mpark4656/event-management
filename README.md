@@ -155,7 +155,7 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 [issues-shield]: https://img.shields.io/github/issues/mpark4656/event-management.svg?style=for-the-badge
 [issues-url]: https://github.com/mpark4656/event-management/issues
 [license-shield]: https://img.shields.io/github/license/mpark4656/event-management.svg?style=for-the-badge
-[license-url]: https://github.com/mpark4656/event-management/blob/master/LICENSE.md
+[license-url]: https://github.com/mpark4656/event-management/blob/main/LICENSE.md
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge

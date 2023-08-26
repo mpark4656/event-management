@@ -44,8 +44,8 @@ const LandingPage = () => {
 						<p>Event App</p>
 					</div>
 					<div className="login-register-btns">
-						<Link className="btn btn-login" to="/login">Login</Link>
-						<Link className="btn btn-register" to="/register">Register</Link>
+						<Link className="btn btn-login" to="/login">login</Link>
+						<Link className="btn btn-register" to="/register">register</Link>
 					</div>
 					<div className="hamburger-menu">
 						<GiHamburgerMenu  onClick={openModal}/>
@@ -101,6 +101,9 @@ const LandingPage = () => {
 							<img src={eventImg} title="phone" />
 						</div>
 					</div>
+				</div>
+				<div className="source">
+					<a className="btn btn-source" href="https://github.com/mpark4656/event-management">view source code</a>
 				</div>
 			</section>
 		</LandingWrapper>
