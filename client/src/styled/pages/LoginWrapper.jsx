@@ -13,10 +13,10 @@ const LoginWrapper = styled.main`
 	section {
 		background-color: var(--white);
 		width: 90%;
-		max-width: 500px;
+		max-width: 400px;
 		border-radius: 1em;
 		padding: 1em;
-		box-shadow: 0 0 5px 3px var(--grey-400);
+		box-shadow: 0 0 1px 2px var(--grey-400);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
