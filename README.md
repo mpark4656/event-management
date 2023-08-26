@@ -31,12 +31,12 @@
 <h3 align="center">Event Management App</h3>
 
   <p align="center">
-    A better way to manage events
+    A better way to manage events for your organization
     <br />
     <a href="https://github.com/mpark4656/event-management"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://event-management-tsx2.onrender.com/login">View Demo</a>
+    <a href="https://event-management-tsx2.onrender.com">View Demo</a>
     ·
     <a href="https://github.com/mpark4656/event-management/issues">Report Bug</a>
     ·
@@ -71,9 +71,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-A simple CRUD application to apply my skills.
+A simple CRUD application to apply my skills in software development. An organization can use this application
+to plan and organize events for their staff members. This project is current in development. You can view the
+prototype by following this [link](https://event-management-tsx2.onrender.com). Please note that this application
+is hosted on Render with a free plan. The application server stays shut down during inactivity. If you are first
+accessing this application, it may take a minute to start up.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -89,11 +91,13 @@ A simple CRUD application to apply my skills.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Requires [node.js](https://nodejs.org/en). A local distance of MongoDB can be set up. Alternately, a cloud instance of MongoDB is available at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
+The development environment requires [node.js](https://nodejs.org/en).
+A local distance of MongoDB can be set up. Alternately, a cloud instance of MongoDB is
+available at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
 
 ### Prerequisites
 * Install node.js.
-* Set up a MongoDB instance either locally or in the cloud.
+* Set up a MongoDB instance either locally or in the cloud (MongoDB Atlas).
 * Create a .env file inside `server` directory. Specify `PORT` (Expressjs). 
 
 ### Installation
@@ -116,7 +120,7 @@ Requires [node.js](https://nodejs.org/en). A local distance of MongoDB can be se
    npm run prod
    ```
 
-The [demo site](https://event-management-tsx2.onrender.com) is hosted on [Render](https://render.com/). I am using a free version, so the application stays shut down during inactivity. It may take a few minutes for the application to start up.
+The [demo site](https://event-management-tsx2.onrender.com) is hosted on [Render](https://render.com/). I am using a free plan, so the application stays shut down during inactivity. It may take a few minutes for the application to start up.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -129,17 +133,14 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 
 <!-- CONTACT -->
 ## Contact
-
-Michael Park - mpark4656@gmail.com
-
-Project Link: [https://github.com/mpark4656/event-management](https://github.com/github_username/repo_name)
+* Michael Park - mpark4656@gmail.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [John Smilga](https://github.com/john-smilga/react-course-v3) for his great MERN course
+* [John Smilga](https://github.com/john-smilga/react-course-v3) for his amazing MERN course
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,7 +156,6 @@ Project Link: [https://github.com/mpark4656/event-management](https://github.com
 [issues-url]: https://github.com/mpark4656/event-management/issues
 [license-shield]: https://img.shields.io/github/license/mpark4656/event-management.svg?style=for-the-badge
 [license-url]: https://github.com/mpark4656/event-management/blob/master/LICENSE.txt
-[product-screenshot]: images/screenshot.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
