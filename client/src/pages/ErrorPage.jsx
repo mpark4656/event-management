@@ -1,5 +1,5 @@
 import img from '../assets/images/error-404.svg';
-import ErrorWrapper from '../styled/ErrorWrapper';
+import ErrorWrapper from '../styled/pages/ErrorWrapper';
 
 const ErrorPage = () => {
 	return (
