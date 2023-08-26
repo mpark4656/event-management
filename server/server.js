@@ -1,7 +1,5 @@
 import express from 'express';
 import 'dotenv/config';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
 
 const app = express();
 
