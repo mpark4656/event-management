@@ -20,27 +20,12 @@ const RegisterPage = () => {
 	const [usernameState, setUsernameState] = useState(initialState);
 	const [passwordState, setPasswordState] = useState(initialState);
 	const [confirmPasswordState, setConfirmPasswordState] = useState(initialState);
-	const validate = () => {
+	const submitForm = (event) => {
+		event.preventDefault();
 		let errMessage = '';
 		if(confirmPasswordState.value !== passwordState.value) {
 			setConfirmPasswordState({...confirmPasswordState, valid: false});
 			errMessage = 'Passwords do not match';
-		}
-		if(!emailState.value) {
-			setEmailState({...emailState, valid: false});
-			errMessage = 'All fields are required';
-		}
-		if(!usernameState.value) {
-			setUsernameState({...usernameState, valid: false});
-			errMessage = 'All fields are required';
-		}
-		if(!passwordState.value) {
-			setPasswordState({...passwordState, valid: false});
-			errMessage = 'All fields are required';
-		}
-		if(!confirmPasswordState.value) {
-			setConfirmPasswordState({...confirmPasswordState, valid: false});
-			errMessage = 'All fields are required';
 		}
 		if(errMessage) {
 			toast.error(errMessage, {
@@ -52,37 +37,37 @@ const RegisterPage = () => {
 	return (
 		<LoginRegisterWrapper>
 			<ToastContainer />
-			<section>
+			<form onSubmit={submitForm} method="post">
 				<img src={logo}></img>
 				<h1>Register</h1>
 				<BasicTextField
 					label="email" id="email" type="email"
 					icon={AiOutlineMail} name="email" placeholder="Type your email"
-					fieldState={emailState} setFieldState={setEmailState}
+					fieldState={emailState} setFieldState={setEmailState} required
 				/>
 				<BasicTextField
 					label="username" id="username" type="text"
 					icon={FaUser} name="username" placeholder="Type your username"
-					fieldState={usernameState} setFieldState={setUsernameState}
+					fieldState={usernameState} setFieldState={setUsernameState} required
 				/>
 				<BasicTextField
 					label="password" id="password" type="password"
 					icon={RiLockPasswordLine} name="password" placeholder="Type your password"
-					fieldState={passwordState} setFieldState={setPasswordState}
+					fieldState={passwordState} setFieldState={setPasswordState} required
 				/>
 				<BasicTextField
 					label="confirm password" id="password-confirm" type="password"
 					icon={RiLockPasswordLine} name="password-confirm" placeholder="Re-type your password"
-					fieldState={confirmPasswordState} setFieldState={setConfirmPasswordState}
+					fieldState={confirmPasswordState} setFieldState={setConfirmPasswordState} required
 				/>
 				<div className="bottom-group">
-					<BasicButton type="submit" label="register" className="btn-primary" onClick={validate} />
+					<BasicButton type="submit" label="register" className="btn-primary" />
 					<p>
 						Already have an account?
 						<Link to="/login" className="link-btn">login</Link>
 					</p>
 				</div>
-			</section>
+			</form>
 		</LoginRegisterWrapper>
 	);
 };

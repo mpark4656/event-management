@@ -10,7 +10,7 @@ const LoginRegisterWrapper = styled.main`
 	img {
 		width: 25%;
 	}
-	section {
+	form {
 		background-color: var(--white);
 		width: 90%;
 		max-width: 400px;

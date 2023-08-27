@@ -1,6 +1,6 @@
 import BasicTextFieldWrapper from '../styled/components/BasicTextFieldWrapper';
 
-const BasicTextField = ({label, id, type, icon, name, placeholder, fieldState, setFieldState}) => {
+const BasicTextField = ({label, id, type, icon, name, placeholder, fieldState, setFieldState, required}) => {
 	const Icon = icon;
 	const onFieldChange = (event) => {
 		// If user changes the value of the field, automatically remove the invalid state
@@ -14,6 +14,7 @@ const BasicTextField = ({label, id, type, icon, name, placeholder, fieldState, s
 				type={type}
 				name={name}
 				placeholder={placeholder}
+				{...required && {required}}
 				{...fieldState && !fieldState.valid && {className: 'invalid'}}
 				onChange={onFieldChange}
 			/>
