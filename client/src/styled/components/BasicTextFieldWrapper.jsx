@@ -29,6 +29,12 @@ const BasicTextFieldWrapper = styled.div`
 		top: 2.3em;
 		left: 1em;
 	}
+	.invalid {
+		border-bottom-color: red;
+	}
+	.invalid + .form-input-icon {
+		color: red;
+	}
 `;
 
 export default BasicTextFieldWrapper;

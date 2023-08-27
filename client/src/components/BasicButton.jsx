@@ -1,11 +1,11 @@
 import BasicButtonWrapper from '../styled/components/BasicButtonWrapper';
 
-const BasicButton = ({label, type, secondaryClass, onClick}) => {
+const BasicButton = ({label, type, className, onClick}) => {
 	return (
 		<BasicButtonWrapper>
 			<button
 				type={type}
-				className={`btn btn-${secondaryClass}`}
+				className={`btn ${className}`}
 				onClick={onClick}
 			>{label}</button>
 		</BasicButtonWrapper>

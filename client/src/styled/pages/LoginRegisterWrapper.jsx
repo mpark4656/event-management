@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LoginWrapper = styled.main`
+const LoginRegisterWrapper = styled.main`
 	height: 100vh;
 	background-color: var(--primary-900);
 	display: flex;
@@ -34,8 +34,9 @@ const LoginWrapper = styled.main`
 	.link-btn {
 		color: var(--primary-400);
 		text-decoration: none;
+		text-transform: capitalize;
 		margin-left: 0.5em;
 	}
 `;
 
-export default LoginWrapper;
+export default LoginRegisterWrapper;
