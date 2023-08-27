@@ -47,6 +47,12 @@ const LandingWrapper = styled.main`
 		background-color: var(--grey-400);
 		color: var(--white);
 	}
+	.modal-close-btn {
+		cursor: pointer;
+	}
+	.modal-close-btn:hover {
+		color: var(--primary-400);
+	}
 	.top {
 		width: 100%;
 		background: var(--primary-900);
@@ -57,25 +63,21 @@ const LandingWrapper = styled.main`
 		margin: auto;
 		margin-top: 2em;
 		display: grid;
-		grid-template-areas: "appname login-register-btns";
+		grid-template-areas: "logocontainer login-register-btns";
 		margin-bottom: 5em;
 	}
-	.app-name p {
-		font-size: 1.5em;
-		font-weight: 700;
-		text-transform: uppercase;
-	}
-	.app-name, .login-register-btns {
+	.logo-container {
 		display: flex;
 		align-items: center;
-		gap: 1em;
-	}
-	.top .app-name {
-		grid-area: appname;
+		justify-content: start;
+		grid-area: logocontainer;
 	}
 	.login-register-btns {
-		grid-area: login-register-btns;
+		display: flex;
+		align-items: center;
 		justify-content: end;
+		gap: 1em;
+		grid-area: login-register-btns;
 	}
 	.btn {
 		border-radius: 20px;
@@ -190,7 +192,7 @@ const LandingWrapper = styled.main`
 	.img-container img {
 		width: 90%;
 	}
-	.source {
+	.source-container {
 		margin: 3em;
 		display: flex;
 		justify-content: center;
@@ -201,7 +203,7 @@ const LandingWrapper = styled.main`
 			gap: 1em;
 		}
 		.img-splash {
-			width: 60%;
+			width: 40%;
 		}
 	}
 	@media (width < 1200px) {
@@ -212,6 +214,9 @@ const LandingWrapper = styled.main`
 			grid-template-columns: 1fr;
 			grid-template-rows: repeat(3, 1fr);
 		}
+		.img-splash {
+			width: 60%;
+		}
 	}
 	@media (width > 800px) {
 		.modal-container {
@@ -220,13 +225,17 @@ const LandingWrapper = styled.main`
 	}
 	@media (width < 800px) {
 		.top nav {
-			grid-template-areas: "appname hamburger";
+			grid-template-areas: "logocontainer hamburger";
+		}
+		.logo {
+			font-size: 1.2em;
 		}
 		.login-register-btns {
 			display: none;
 		}
 		.hamburger-menu {
 			display: flex;
+			align-items: center;
 			justify-content: end;
 			grid-area: hamburger;
 		}

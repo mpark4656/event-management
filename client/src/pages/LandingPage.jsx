@@ -1,9 +1,9 @@
 import LandingWrapper from '../styled/pages/LandingWrapper';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SiEventbrite } from 'react-icons/si';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { CgCloseR } from 'react-icons/cg';
+import Logo from '../components/Logo';
 import eventImg from '../assets/images/landing/event.svg';
 import planImg from '../assets/images/landing/plan.svg';
 import scheduleImg from '../assets/images/landing/schedule.svg';
@@ -20,15 +20,12 @@ const LandingPage = () => {
 	};
 	return (
 		<LandingWrapper>
-			{showModal && 
+			{showModal &&
 				<div className="modal-container">
 					<div className="modal">
 						<div className="modal-header">
-							<div className="app-name">
-								<SiEventbrite size={iconSize} />
-								<p>Event App</p>
-							</div>
-							<CgCloseR onClick={closeModal} size={iconSize} />
+							<Logo className="dark logo" />
+							<CgCloseR className="modal-close-btn" onClick={closeModal} size={iconSize} />
 						</div>
 						<div className="modal-menu">	
 							<Link className="menu-link" to="/login">login</Link>
@@ -39,21 +36,20 @@ const LandingPage = () => {
 			}
 			<section className="top">
 				<nav>
-					<div className="app-name">
-						<SiEventbrite size={iconSize} />
-						<p>Event App</p>
+					<div className="logo-container">
+						<Logo className="light logo" />
 					</div>
 					<div className="login-register-btns">
 						<Link className="btn btn-login" to="/login">login</Link>
 						<Link className="btn btn-register" to="/register">register</Link>
 					</div>
 					<div className="hamburger-menu">
-						<GiHamburgerMenu  onClick={openModal}/>
+						<GiHamburgerMenu onClick={openModal}/>
 					</div>
 				</nav>
 				<div className="about">
 					<div className="description">
-						<h1>a new way of planning events for your organization</h1>
+						<h1>a better way of planning events for your organization</h1>
 						<p>
 							With this event management application, planning your
 							next event becomes so much easier!
@@ -102,7 +98,7 @@ const LandingPage = () => {
 						</div>
 					</div>
 				</div>
-				<div className="source">
+				<div className="source-container">
 					<a className="btn btn-source" href="https://github.com/mpark4656/event-management">view source code</a>
 				</div>
 			</section>
