@@ -5,9 +5,8 @@ import BasicButton from '../components/BasicButton';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Form, useNavigation, redirect, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useState } from 'react';
 
 const initialState = {
@@ -15,20 +14,24 @@ const initialState = {
 	valid: true
 };
 
+export const registerAction = async ({ request }) => {
+	const formData = await request.formData();
+	const data = Object.fromEntries(formData);
+	// Placeholder until server logic is done
+	console.log(data);
+	return null;
+}
+
 const RegisterPage = () => {
-	const [emailState, setEmailState] = useState(initialState);
-	const [usernameState, setUsernameState] = useState(initialState);
+	const navigation = useNavigation();
+	const isSubmitting = navigation.state == 'submitting';
 	const [passwordState, setPasswordState] = useState(initialState);
 	const [confirmPasswordState, setConfirmPasswordState] = useState(initialState);
 	const submitForm = (event) => {
-		event.preventDefault();
-		let errMessage = '';
 		if(confirmPasswordState.value !== passwordState.value) {
+			event.preventDefault();
 			setConfirmPasswordState({...confirmPasswordState, valid: false});
-			errMessage = 'Passwords do not match';
-		}
-		if(errMessage) {
-			toast.error(errMessage, {
+			toast.error('Passwords do not match', {
 				position: toast.POSITION.TOP_CENTER,
 				toastId: 'form-invalid-error'
 			});
@@ -36,38 +39,35 @@ const RegisterPage = () => {
 	}
 	return (
 		<LoginRegisterWrapper>
-			<ToastContainer />
-			<form onSubmit={submitForm} method="post">
+			<Form onSubmit={submitForm} method="post">
 				<img src={logo}></img>
 				<h1>Register</h1>
 				<BasicTextField
 					label="email" id="email" type="email"
-					icon={AiOutlineMail} name="email" placeholder="Type your email"
-					fieldState={emailState} setFieldState={setEmailState} required
+					icon={AiOutlineMail} name="email" placeholder="Type your email" required
 				/>
 				<BasicTextField
 					label="username" id="username" type="text"
-					icon={FaUser} name="username" placeholder="Type your username"
-					fieldState={usernameState} setFieldState={setUsernameState} required
+					icon={FaUser} name="username" placeholder="Type your username" required
 				/>
 				<BasicTextField
 					label="password" id="password" type="password"
-					icon={RiLockPasswordLine} name="password" placeholder="Type your password"
-					fieldState={passwordState} setFieldState={setPasswordState} required
+					icon={RiLockPasswordLine} name="password" placeholder="Type your password" required
+					fieldState={passwordState} setFieldState={setPasswordState}
 				/>
 				<BasicTextField
 					label="confirm password" id="password-confirm" type="password"
-					icon={RiLockPasswordLine} name="password-confirm" placeholder="Re-type your password"
-					fieldState={confirmPasswordState} setFieldState={setConfirmPasswordState} required
+					icon={RiLockPasswordLine} name="password-confirm" placeholder="Re-type your password" required
+					fieldState={confirmPasswordState} setFieldState={setConfirmPasswordState}
 				/>
 				<div className="bottom-group">
-					<BasicButton type="submit" label="register" className="btn-primary" />
+					<BasicButton type="submit" label="register" className="btn-primary" disabled={isSubmitting} disabledLabel="submitting..."/>
 					<p>
 						Already have an account?
 						<Link to="/login" className="link-btn">login</Link>
 					</p>
 				</div>
-			</form>
+			</Form>
 		</LoginRegisterWrapper>
 	);
 };

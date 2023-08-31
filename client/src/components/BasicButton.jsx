@@ -1,13 +1,14 @@
 import BasicButtonWrapper from '../styled/components/BasicButtonWrapper';
 
-const BasicButton = ({label, type, className, onClick}) => {
+const BasicButton = ({label, type, className, onClick, disabled, disabledLabel}) => {
 	return (
 		<BasicButtonWrapper>
 			<button
 				type={type}
 				className={`btn ${className}`}
 				onClick={onClick}
-			>{label}</button>
+				disabled={disabled}
+			>{disabled ? disabledLabel: label}</button>
 		</BasicButtonWrapper>
 	)
 }

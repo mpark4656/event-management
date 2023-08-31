@@ -10,6 +10,8 @@ import {
 	DashboardLayout,
 	ErrorPage
 } from './pages';
+import { loginAction } from './pages/LoginPage';
+import { registerAction } from './pages/RegisterPage';
 
 const router = createBrowserRouter([
 	{
@@ -21,10 +23,12 @@ const router = createBrowserRouter([
 			element: <LandingPage/>
 		},{
 			path: 'register',
-			element: <RegisterPage/>
+			element: <RegisterPage/>,
+			action: registerAction
 		},{
 			path: 'login',
-			element: <LoginPage/>
+			element: <LoginPage/>,
+			action: loginAction
 		},{
 			path: 'dashboard',
 			element: <DashboardLayout/>

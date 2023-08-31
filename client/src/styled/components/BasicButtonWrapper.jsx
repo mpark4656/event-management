@@ -15,6 +15,10 @@ const BasicButtonWrapper = styled.span`
 	.btn-primary:hover {
 		background-color: var(--primary-900);
 	}
+	.btn:disabled {
+		color: var(--grey-400);
+		background-color: var(--grey-200);
+	}
 `;
 
 export default BasicButtonWrapper;

@@ -4,44 +4,41 @@ import BasicTextField from '../components/BasicTextField';
 import BasicButton from '../components/BasicButton';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import { Form, useNavigation, redirect, Link } from 'react-router-dom';
 
-const initialState = {
-	value: '',
-	valid: true
-};
+export const loginAction = async ({ request }) => {
+	const formData = await request.formData();
+	const data = Object.fromEntries(formData);
+	// Placeholder until server logic is done
+	console.log(data);
+	return null;
+}
 
 const LoginPage = () => {
-	const [usernameState, setUsernameState] = useState(initialState);
-	const [passwordState, setPasswordState] = useState(initialState);
-	const submitForm = (event) => {
-		event.preventDefault();
-	}
+	const navigation = useNavigation();
+	const isSubmitting = navigation.state == 'submitting';
+	
 	return (
 		<LoginRegisterWrapper>
-			<form onSubmit={submitForm} method="post">
+			<Form method="post">
 				<img src={logo}></img>
 				<h1>Login</h1>
 				<BasicTextField
 					label="username" id="username" type="text"
-					icon={FaUser} name="username" placeholder="Type your username"
-					fieldState={usernameState} setFieldState={setUsernameState} required
+					icon={FaUser} name="username" placeholder="Type your username" required
 				/>
 				<BasicTextField
 					label="password" id="password" type="password"
-					icon={RiLockPasswordLine} name="password" placeholder="Type your password"
-					fieldState={passwordState} setFieldState={setPasswordState} required
+					icon={RiLockPasswordLine} name="password" placeholder="Type your password" required
 				/>
 				<div className="bottom-group">
-					<BasicButton type="submit" label="login" className="btn-primary" />
+					<BasicButton type="submit" label="login" className="btn-primary" disabled={isSubmitting} disabledLabel="submitting" />
 					<p>
 						Don't have an account?
 						<Link to="/register" className="link-btn">register</Link>
 					</p>
 				</div>
-			</form>
+			</Form>
 		</LoginRegisterWrapper>
 	);
 };
