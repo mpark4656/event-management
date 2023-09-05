@@ -6,9 +6,10 @@ import Logo from '../components/Logo';
 import NotificationBell from '../components/NotificationBell';
 import ProfileButton from '../components/ProfileButton';
 import NotificationItem from "../components/NotificationItem";
-import { MdArrowForwardIos, MdDashboard, MdAdminPanelSettings, MdEvent, MdDarkMode, MdLightMode } from 'react-icons/md';
+import DashboardSideMenu from "../components/DashboardSideMenu";
+import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { CgCloseR } from 'react-icons/cg';
-import { IoMdArrowDropdown, IoMdArrowDropleft, IoMdLogOut } from 'react-icons/io';
+import { IoMdLogOut } from 'react-icons/io';
 import { IoNotificationsOutline } from 'react-icons/io5';
 import { FaUser } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -51,8 +52,8 @@ const companyData = {
 
 const DashboardLayout = () => {
 	const notificationListRef = useRef(null);
-	const { darkModePref, saveDarkModePref } = useContext(AppContext);
 	const [company, setCompany] = useState(companyData);
+	const { darkModePref, saveDarkModePref } = useContext(AppContext);
 	const [user, setUser] = useState(userData);
 	const [isDarkMode, setIsDarkMode] = useState(darkModePref);
 	const [showMenuModal, setShowMenuModal] = useState(false);
@@ -60,8 +61,6 @@ const DashboardLayout = () => {
 	const [showProfileMenu, setShowProfileMenu] = useState(false);
 	const [showNewNotifications, setShowNewNotifications] = useState(false);
 	const [showUserMenu, setShowUserMenu ] = useState(true);
-	const [showEventMenu, setShowEventMenu] = useState(false);
-	const [showAdminMenu, setShowAdminMenu] = useState(false);
 
 	const removeNotificationItem = (id) => {
 		setNotificationItems(items => {
@@ -75,12 +74,6 @@ const DashboardLayout = () => {
 	const toggleMenuModal = () => { setShowMenuModal(value => !value); }
 	const toggleProfileMenu = () => { setShowProfileMenu(value => !value); };
 	const toggleNewNotificationList = () => { setShowNewNotifications(value => !value); };
-	const toggleShowUserMenu = () => { setShowUserMenu(value => !value); };
-	const toggleEventMenuItem = (event) => {
-		const target = event.target.closest('.app-menu-item').dataset.target;
-		if(target === 'event') setShowEventMenu(value => !value);
-		if(target === 'admin') setShowAdminMenu(value => !value);
-	};
 	// Close any open dropdown menus or panels that should close when user clicks outside them.
 	const closeTransientItems = (event) => {
 		if(!event.target.closest('#profile-btn')) setShowProfileMenu(false);
@@ -187,55 +180,13 @@ const DashboardLayout = () => {
 					<GiHamburgerMenu size="1.5em" onClick={toggleMenuModal} />
 				</div>
 			</nav>
-			{!showUserMenu &&
-				<aside className="app-menu-expand-btn" onClick={toggleShowUserMenu} title="Open Side Menu">
-					<MdArrowForwardIos />
-				</aside>
-			}
-			<aside className={`app-menu ${showUserMenu ? '' : 'app-menu-collapsed'}`}>
-				<div className="app-menu-header">
-					<MdDashboard />
-					{company.name}
-					<div onClick={toggleShowUserMenu} className="hide-app-menu-btn">
-						<CgCloseR title="Close Side Menu" />
-					</div>
-				</div>
-				<ul className="app-menu-list">
-					<li className={`list-item app-menu-item ${showEventMenu ? '' : 'app-menu-item-collapsed'}`}
-						onClick={toggleEventMenuItem} data-target='event'>
-						<span className="app-menu-item-label"><MdEvent />management</span>
-						{showEventMenu && <IoMdArrowDropdown/>}{!showEventMenu && <IoMdArrowDropleft/>}
-					</li>
-					<li className="list-item app-menu-nested-list">
-						<ul>
-							{managementMenuItems.map(item => {
-								return (
-									<Link key={item.key} className="list-item app-menu-item nested" to={item.path}>
-										{item.label}
-									</Link>
-								);
-							})}
-						</ul>
-					</li>
-					<li className={`list-item app-menu-item ${showAdminMenu ? '' : 'app-menu-item-collapsed'}`}
-						onClick={toggleEventMenuItem} data-target='admin'>
-						<span className="app-menu-item-label"><MdAdminPanelSettings/>administration</span>
-						{showAdminMenu && <IoMdArrowDropdown />}{!showAdminMenu && <IoMdArrowDropleft />}
-					</li>
-					<li className="list-item app-menu-nested-list">
-						<ul>
-							{adminMenuItems.map(item => {
-								return (
-									<Link key={item.key} className="list-item app-menu-item nested" to={item.path}>
-										{item.label}
-									</Link>
-								);
-							})}
-						</ul>
-					</li>
-				</ul>
-			</aside>
-			<section><Outlet/></section>
+			<DashboardSideMenu
+				className="side-menu"
+				showUserMenu={showUserMenu}
+				setShowUserMenu={setShowUserMenu}
+				company={company}
+			/>
+			<section className={showUserMenu ? 'section-left-margin' : ''}><Outlet/></section>
 		</DashboardLayoutWrapper>
 	);
 };
