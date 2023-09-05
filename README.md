@@ -28,7 +28,7 @@
     <img src="https://raw.githubusercontent.com/mpark4656/event-management/main/client/src/assets/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Event Management App</h3>
+<h3 align="center">Event.io</h3>
 
   <p align="center">
     A better way to manage events for your organization
