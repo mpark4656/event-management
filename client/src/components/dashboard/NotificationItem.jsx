@@ -1,4 +1,4 @@
-import NotificationItemWrapper from '../styled/components/NotificationItemWrapper';
+import NotificationItemWrapper from '../../styled/components/dashboard/NotificationItemWrapper';
 import { IoCloseOutline } from 'react-icons/io5';
 import { TfiAnnouncement } from 'react-icons/tfi';
 import { RiCalendarEventLine, RiComputerLine } from 'react-icons/ri';

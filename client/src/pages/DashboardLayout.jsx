@@ -1,18 +1,16 @@
 import DashboardLayoutWrapper from "../styled/pages/DashboardLayoutWrapper";
 import AppContext from "../main";
 import { Outlet, Link } from 'react-router-dom';
-import { useState, useRef, useContext } from 'react';
+import { useState, useContext } from 'react';
 import Logo from '../components/Logo';
-import NotificationBell from '../components/NotificationBell';
-import ProfileButton from '../components/ProfileButton';
-import NotificationItem from "../components/NotificationItem";
-import DashboardSideMenu from "../components/DashboardSideMenu";
+import DashboardNavbar from "../components/dashboard/DashboardNavbar";
+import DashboardSideMenu from "../components/dashboard/DashboardSideMenu";
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { CgCloseR } from 'react-icons/cg';
 import { IoMdLogOut } from 'react-icons/io';
 import { IoNotificationsOutline } from 'react-icons/io5';
 import { FaUser } from 'react-icons/fa';
-import { GiHamburgerMenu } from 'react-icons/gi';
+
 import adminMenuItems from '../constants/AdminMenuItems.js';
 import managementMenuItems from '../constants/ManagementMenuItems.js';
 
@@ -51,9 +49,8 @@ const companyData = {
 }
 
 const DashboardLayout = () => {
-	const notificationListRef = useRef(null);
-	const [company, setCompany] = useState(companyData);
 	const { darkModePref, saveDarkModePref } = useContext(AppContext);
+	const [company, setCompany] = useState(companyData);
 	const [user, setUser] = useState(userData);
 	const [isDarkMode, setIsDarkMode] = useState(darkModePref);
 	const [showMenuModal, setShowMenuModal] = useState(false);
@@ -77,17 +74,18 @@ const DashboardLayout = () => {
 	// Close any open dropdown menus or panels that should close when user clicks outside them.
 	const closeTransientItems = (event) => {
 		if(!event.target.closest('#profile-btn')) setShowProfileMenu(false);
-		if(!event.target.closest('#notification-bell') &&
-			!notificationListRef.current.contains(event.target)) setShowNewNotifications(false);
+		if(!event.target.closest('#notification-bell')
+			&& !event.target.closest('.notification-container')) setShowNewNotifications(false);
 		if(event.target.closest('.modal-close')) setShowMenuModal(false);
 	};
+
 	return (
 		<DashboardLayoutWrapper onClick={closeTransientItems} className={isDarkMode ? 'dark-mode' : ''}>
 			<div className={`modal ${showMenuModal ? '' : 'modal-hidden'}`}>
 				<div className="modal-menu">
 					<div className="modal-menu-content">
 						<div className="modal-menu-header">
-							<Logo to="/dashboard" className="modal-close logo" />
+							<Logo className="logo" />
 							<CgCloseR className="modal-menu-icon" onClick={toggleMenuModal} size="2em" />
 						</div>
 						<div className="modal-menu-body">
@@ -136,50 +134,18 @@ const DashboardLayout = () => {
 					</div>
 				</div>
 			</div>
-			<nav>
-				<div className="logo">
-					<Logo theme="light" to="/dashboard" />
-				</div>
-				<div className="user-menu">
-					{
-						isDarkMode && <MdLightMode size="1.5em" cursor="pointer" onClick={toggleDarkMode}
-						title="Turn Off Dark Mode" />
-					}
-					{
-						!isDarkMode && <MdDarkMode size="1.5em" cursor="pointer" onClick={toggleDarkMode}
-						title="Turn On Dark Mode" />
-					}
-					<NotificationBell id="notification-bell" count={notificationItems.length} onClick={toggleNewNotificationList}/>
-					<div className={`notification-container ${showNewNotifications ? '' : 'notifications-collapsed'}`}>
-						<ul ref={notificationListRef} className="notification-list">
-							{notificationItems.length > 0 && notificationItems.map(item => {
-								return (
-									<NotificationItem key={item._id}
-										notification={item}
-										removeNotificationItem={removeNotificationItem}
-									/>
-								);
-							})}
-							{notificationItems.length == 0 && <p className="no-notification-msg">no new notifications</p>}
-						</ul>
-					</div>
-					<ProfileButton id="profile-btn" onClick={toggleProfileMenu} user={user} />
-					<ul className={`profile-menu ${showProfileMenu ? '' : 'profile-menu-collapsed'}`}>
-						<Link className="list-item profile-menu-item" to="/dashboard/profile">
-							My Profile
-						</Link>
-						<Link className="list-item profile-menu-item" to="/dashboard/notification">
-							Notifications
-						</Link>
-						<Link className="list-item profile-menu-item">
-							Logout
-						</Link>
-					</ul>
-				</div>
-				<div className="hamburger-icon">
-					<GiHamburgerMenu size="1.5em" onClick={toggleMenuModal} />
-				</div>
-			</nav>
+			<DashboardNavbar
+				isDarkMode={isDarkMode}
+				toggleDarkMode={toggleDarkMode}
+				toggleMenuModal={toggleMenuModal}
+				user={user}
+				notificationItems={notificationItems}
+				removeNotificationItem={removeNotificationItem}
+				showProfileMenu={showProfileMenu}
+				toggleProfileMenu={toggleProfileMenu}
+				showNewNotifications={showNewNotifications}
+				toggleNewNotificationList={toggleNewNotificationList}
+			/>
 			<DashboardSideMenu
 				className="side-menu"
 				showUserMenu={showUserMenu}

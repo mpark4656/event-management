@@ -1,11 +1,11 @@
-import DashboardSideMenuWrapper from "../styled/components/DashboardSideMenuWrapper";
+import DashboardSideMenuWrapper from "../../styled/components/dashboard/DashboardSideMenuWrapper";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CgCloseR } from 'react-icons/cg';
 import { IoMdArrowDropdown, IoMdArrowDropleft } from 'react-icons/io';
 import { MdArrowForwardIos, MdDashboard, MdAdminPanelSettings, MdEvent } from 'react-icons/md';
-import adminMenuItems from '../constants/AdminMenuItems.js';
-import managementMenuItems from '../constants/ManagementMenuItems.js';
+import adminMenuItems from '../../constants/AdminMenuItems.js';
+import managementMenuItems from '../../constants/ManagementMenuItems.js';
 
 const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company, className}) => {
 	const [showEventMenu, setShowEventMenu] = useState(false);

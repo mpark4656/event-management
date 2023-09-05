@@ -1,4 +1,4 @@
-import NotificationBellWrapper from '../styled/components/NotificationBellWrapper';
+import NotificationBellWrapper from '../../styled/components/dashboard/NotificationBellWrapper';
 import { IoNotificationsOutline } from 'react-icons/io5';
 
 const NotificationBell = ({count = 0, onClick, id}) => {

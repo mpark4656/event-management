@@ -1,6 +1,6 @@
 import { FaUser } from 'react-icons/fa';
 import { AiFillCaretDown } from 'react-icons/ai';
-import ProfileButtonWrapper from '../styled/components/ProfileButtonWrapper';
+import ProfileButtonWrapper from '../../styled/components/dashboard/ProfileButtonWrapper';
 
 const ProfileButton = ({user, id, onClick}) => {
 	// Temporary name
