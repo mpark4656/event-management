@@ -8,6 +8,16 @@ import {
 	RegisterPage,
 	LoginPage,
 	DashboardLayout,
+	AccountPage,
+	ConfigurationPage,
+	EventPage,
+	NoticeAdminPage,
+	NotificationPage,
+	OrganizationPage,
+	ProfilePage,
+	ReportPage,
+	ResourcePage,
+	WelcomePage,
 	ErrorPage
 } from './pages';
 import { loginAction } from './pages/LoginPage';
@@ -31,7 +41,38 @@ const router = createBrowserRouter([
 			action: loginAction
 		},{
 			path: 'dashboard',
-			element: <DashboardLayout/>
+			element: <DashboardLayout/>,
+			children: [{
+				index: true,
+				element: <WelcomePage/>
+			},{
+				path: 'profile',
+				element: <ProfilePage />
+			},{
+				path: 'notification',
+				element: <NotificationPage />
+			},{
+				path: 'event',
+				element: <EventPage />
+			},{
+				path: 'resource',
+				element: <ResourcePage />
+			},{
+				path: 'report',
+				element: <ReportPage />
+			},{
+				path: 'account',
+				element: <AccountPage />
+			},{
+				path: 'notice-admin',
+				element: <NoticeAdminPage />
+			},{
+				path: 'organization',
+				element: <OrganizationPage />
+			},{
+				path: 'configuration',
+				element: <ConfigurationPage />
+			}]
 		}]
 	}
 ]);

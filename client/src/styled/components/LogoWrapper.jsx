@@ -5,6 +5,9 @@ const LogoWrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	gap: 1em;
+	.pointer {
+		cursor: pointer;
+	}
 	img {
 		width: 3em;
 	}
@@ -18,6 +21,10 @@ const LogoWrapper = styled.div`
 	.dark {
 		color: var(--primary-900);
 	}
+`;
+
+export const NavigateLogoWrapper = styled(LogoWrapper)`
+	cursor: pointer;
 `;
 
 export default LogoWrapper;

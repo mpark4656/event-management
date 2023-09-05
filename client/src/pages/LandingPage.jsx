@@ -24,7 +24,7 @@ const LandingPage = () => {
 				<div className="modal-container">
 					<div className="modal">
 						<div className="modal-header">
-							<Logo className="dark logo" />
+							<Logo theme="dark logo" />
 							<CgCloseR className="modal-close-btn" onClick={closeModal} size={iconSize} />
 						</div>
 						<div className="modal-menu">	
@@ -37,7 +37,7 @@ const LandingPage = () => {
 			<section className="top">
 				<nav>
 					<div className="logo-container">
-						<Logo className="light logo" />
+						<Logo theme="light logo" />
 					</div>
 					<div className="login-register-btns">
 						<Link className="btn btn-login" to="/login">login</Link>
