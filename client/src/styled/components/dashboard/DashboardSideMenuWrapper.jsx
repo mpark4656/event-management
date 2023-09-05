@@ -39,7 +39,6 @@ const DashboardSideMenuWrapper = styled.aside`
 		height: 5em;
 	}
 	.hide-app-menu-btn {
-		padding: 0.1em;
 		cursor: pointer;
 		display: flex;
 		justify-content: center;

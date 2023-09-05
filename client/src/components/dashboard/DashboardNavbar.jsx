@@ -41,13 +41,13 @@ const DashboardNavbar = ({
 				</div>
 				<ProfileButton id="profile-btn" onClick={toggleProfileMenu} user={user} />
 				<ul className={`profile-menu ${showProfileMenu ? '' : 'profile-menu-collapsed'}`}>
-					<Link className="list-item profile-menu-item" to="/dashboard/profile">
+					<Link className="profile-menu-item" to="/dashboard/profile">
 						My Profile
 					</Link>
-					<Link className="list-item profile-menu-item" to="/dashboard/notification">
+					<Link className="profile-menu-item" to="/dashboard/notification">
 						Notifications
 					</Link>
-					<Link className="list-item profile-menu-item">
+					<Link className="profile-menu-item">
 						Logout
 					</Link>
 				</ul>

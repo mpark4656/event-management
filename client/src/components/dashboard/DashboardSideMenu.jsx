@@ -1,9 +1,9 @@
 import DashboardSideMenuWrapper from "../../styled/components/dashboard/DashboardSideMenuWrapper";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CgCloseR } from 'react-icons/cg';
 import { IoMdArrowDropdown, IoMdArrowDropleft } from 'react-icons/io';
-import { MdArrowForwardIos, MdDashboard, MdAdminPanelSettings, MdEvent } from 'react-icons/md';
+import { MdArrowForwardIos, MdArrowBackIos, MdAdminPanelSettings, MdEvent } from 'react-icons/md';
+import { SlOrganization } from 'react-icons/sl';
 import adminMenuItems from '../../constants/AdminMenuItems.js';
 import managementMenuItems from '../../constants/ManagementMenuItems.js';
 
@@ -25,10 +25,10 @@ const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company}) => {
 			}
 			<div className={`app-menu ${showUserMenu ? '' : 'app-menu-collapsed'}`}>
 				<div className="app-menu-header">
-					<MdDashboard />
+					<SlOrganization />
 					{company.name}
 					<div onClick={toggleShowUserMenu} className="hide-app-menu-btn">
-						<CgCloseR title="Close Side Menu" />
+						<MdArrowBackIos title="Close Side Menu" />
 					</div>
 				</div>
 				<ul className="app-menu-list">

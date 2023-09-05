@@ -92,6 +92,9 @@ const DashboardNavbarWrapper = styled.nav`
 		width: 100%;
 		padding: 0.5em 1em;
 		text-align: center;
+		color: var(--white);
+		text-decoration: none;
+		cursor: pointer;
 	}
 	.profile-menu-item:hover {
 		background-color: var(--primary-800);
