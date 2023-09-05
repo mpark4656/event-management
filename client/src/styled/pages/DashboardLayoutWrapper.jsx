@@ -102,9 +102,6 @@ const DashboardLayoutWrapper = styled.main`
 		}
 	}
 	@media screen and (width < 900px) {
-		.side-menu {
-			display: none;
-		}
 		section, .section-left-margin {
 			margin-left: 0;
 		}

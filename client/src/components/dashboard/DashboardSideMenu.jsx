@@ -7,7 +7,7 @@ import { MdArrowForwardIos, MdDashboard, MdAdminPanelSettings, MdEvent } from 'r
 import adminMenuItems from '../../constants/AdminMenuItems.js';
 import managementMenuItems from '../../constants/ManagementMenuItems.js';
 
-const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company, className}) => {
+const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company}) => {
 	const [showEventMenu, setShowEventMenu] = useState(false);
 	const [showAdminMenu, setShowAdminMenu] = useState(false);
 	const toggleShowUserMenu = () => { setShowUserMenu(value => !value); };
@@ -17,7 +17,7 @@ const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company, className}) 
 		if(target === 'admin') setShowAdminMenu(value => !value);
 	};
 	return (
-		<DashboardSideMenuWrapper className={className}>
+		<DashboardSideMenuWrapper>
 			{!showUserMenu &&
 				<div className="app-menu-expand-btn" onClick={toggleShowUserMenu} title="Open Side Menu">
 					<MdArrowForwardIos />

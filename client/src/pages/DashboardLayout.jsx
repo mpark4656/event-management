@@ -147,7 +147,6 @@ const DashboardLayout = () => {
 				toggleNewNotificationList={toggleNewNotificationList}
 			/>
 			<DashboardSideMenu
-				className="side-menu"
 				showUserMenu={showUserMenu}
 				setShowUserMenu={setShowUserMenu}
 				company={company}
