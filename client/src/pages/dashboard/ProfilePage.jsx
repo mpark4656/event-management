@@ -1,8 +1,12 @@
 import ProfileWrapper from "../../styled/pages/dashboard/ProfileWrapper";
+import underConstructionImg from '../../assets/images/under-construction.svg';
 
 const ProfilePage = () => {
 	return (
-		<ProfileWrapper>Profile Page - under construction</ProfileWrapper>
+		<ProfileWrapper>
+			<h1>Profile Page - Under construction</h1>
+			<img src={underConstructionImg} title="Under Construction" />
+		</ProfileWrapper>
 	)
 };
 

@@ -1,8 +1,12 @@
 import ResourceWrapper from "../../styled/pages/dashboard/ResourceWrapper";
+import underConstructionImg from '../../assets/images/under-construction.svg';
 
 const ResourcePage = () => {
 	return (
-		<ResourceWrapper>Resource Page - under construction</ResourceWrapper>
+		<ResourceWrapper>
+			<h1>Resource Page - Under construction</h1>
+			<img src={underConstructionImg} title="Under Construction" />
+		</ResourceWrapper>
 	)
 };
 
