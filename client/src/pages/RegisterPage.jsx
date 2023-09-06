@@ -5,7 +5,7 @@ import BasicButton from '../components/BasicButton';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
-import { Form, useNavigation, redirect, Link } from 'react-router-dom';
+import { Form, useNavigation, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 
@@ -44,20 +44,20 @@ const RegisterPage = () => {
 				<h1>Register</h1>
 				<BasicTextField
 					label="email" id="email" type="email"
-					icon={AiOutlineMail} name="email" placeholder="Type your email" required
+					icon={AiOutlineMail} name="email" placeholder="Enter your email" required
 				/>
 				<BasicTextField
-					label="username" id="username" type="text"
-					icon={FaUser} name="username" placeholder="Type your username" required
+					label="name" id="name" type="text"
+					icon={FaUser} name="name" placeholder="Enter your name" required
 				/>
 				<BasicTextField
 					label="password" id="password" type="password"
-					icon={RiLockPasswordLine} name="password" placeholder="Type your password" required
+					icon={RiLockPasswordLine} name="password" placeholder="Enter your password" required
 					fieldState={passwordState} setFieldState={setPasswordState}
 				/>
 				<BasicTextField
 					label="confirm password" id="password-confirm" type="password"
-					icon={RiLockPasswordLine} name="password-confirm" placeholder="Re-type your password" required
+					icon={RiLockPasswordLine} name="password-confirm" placeholder="Re-enter your password" required
 					fieldState={confirmPasswordState} setFieldState={setConfirmPasswordState}
 				/>
 				<div className="bottom-group">
