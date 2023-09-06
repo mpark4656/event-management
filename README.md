@@ -98,7 +98,9 @@ available at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
 ### Prerequisites
 * Install node.js.
 * Set up a MongoDB instance either locally or in the cloud (MongoDB Atlas).
-* Create a .env file inside `server` directory. Specify `PORT` (Expressjs). 
+* Create a .env file inside `server` directory.
+  * Specify a `PORT` that Expressjs will listen on.
+  * Specify a `MONGO_URL`, which is your MongoDB string.
 
 ### Installation
 * Installing dependencies (Execute this from the repository root)
