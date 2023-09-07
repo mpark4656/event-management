@@ -13,7 +13,7 @@ const UserSchema = new Schema({
 		type: String,
 		trim: true,
 		enum: {
-			values: USER_ROLES,
+			values: Object.values(USER_ROLES),
 			message: '{VALUE} is not one of the user roles'
 		}
 	},

@@ -1,8 +1,8 @@
-const USER_ROLES = [
-	'superadmin',
-	'admin',
-	'manager',
-	'user'
-];
+const USER_ROLES = {
+	SUPER_ADMIN: 'superadmin',
+	ADMIN: 'admin',
+	MANAGER: 'manager',
+	USER: 'user'
+};
 
 export default USER_ROLES;

@@ -2,10 +2,17 @@ import 'express-async-errors';
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 import errorMiddleware from './middleware/errorMiddleware.js';
+import { authorize } from './middleware/authMiddleware.js';
+import authRouter from './routers/authRouter.js';
 import userRouter from './routers/userRouter.js';
+import USER_ROLES from './utils/constants.js';
 
 const app = express();
+
+// Cookie Parser
+app.use(cookieParser());
 
 // Json Middleware
 app.use(express.json());
@@ -13,8 +20,11 @@ app.use(express.json());
 // Static Pages Middleware
 app.use(express.static('dist'));
 
-// User API
-app.use('/api/v1', userRouter);
+// Auth API
+app.use('/api/v1', authRouter);
+
+// User Admin API
+app.use('/api/v1', authorize([USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]), userRouter);
 
 // Send index html file from React and let the react router handle this
 app.get('*', (req, res) => { res.sendFile('index.html', {root: 'dist/'}); });
