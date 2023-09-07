@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/UserModel.js';
-import { compare } from '../utils/hash.js';
+import { compare, hash } from '../utils/hash.js';
 import { BadRequestError } from '../middleware/errorMiddleware.js';
 
 export const login = async (req, res) => {
@@ -31,4 +31,15 @@ export const logout = (req, res) => {
 export const getCurrentUser = async (req, res) => {
 	const user = await User.findOne({ _id: req.body.userId });
 	res.status(200).json({ user });
+}
+
+export const createVisitor = async (req, res) => {
+	const password = await hash('password');
+	const user = await User.create({
+		email: 'visitor@eventio.com',
+		name: 'Visitor',
+		password: password,
+		role: 'superadmin'
+	});
+	res.status(201).json({ user });
 }

@@ -77,6 +77,10 @@ prototype by following this [link](https://event-management-tsx2.onrender.com). 
 is hosted on Render with a free plan. The application server stays shut down during inactivity. If you are first
 accessing this application, it may take a minute to start up.
 
+### Visitor Account
+* Email: visitor@eventio.com
+* Password: password
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
