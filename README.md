@@ -98,9 +98,14 @@ available at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
 ### Prerequisites
 * Install node.js.
 * Set up a MongoDB instance either locally or in the cloud (MongoDB Atlas).
-* Create a .env file inside `server` directory.
-  * Specify a `PORT` that Expressjs will listen on.
-  * Specify a `MONGO_URL`, which is your MongoDB string.
+* Create a .env file inside `server` directory and specify the following properties.
+  * `PORT`: the port that Expressjs will listen on.
+  * `MONGO_URL`: the MongoDB string.
+  * `JWT_SECRET`: the secret key for Json Web Token
+  * `JWT_TOKEN_EXP`: the duration of the JWT token (i.e. 4h or 1d).
+    For more details, please reference the `expiresIn` option at https://www.npmjs.com/package/jsonwebtoken.
+  * `COOKIES_MAX_AGE`: the duration of the client's JWT http-only cookie in miliseconds. Should match the value
+	of `JWT_TOKEN_EXP`
 
 ### Installation
 * Installing dependencies (Execute this from the repository root)

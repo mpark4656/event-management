@@ -14,10 +14,14 @@ export const login = async (req, res) => {
 	if(!await compare(req.body.password, user.get('password'))) {
 		throw new BadRequestError('incorrect email or password');
 	}
-	var token = jwt.sign({
-		userId: user.get('_id')
-	}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_TOKEN_EXP });
-	res.cookie('jwttoken', token, { httpOnly: true }).status(200).json({ msg: 'login successful' });
+	var token = jwt.sign(
+		{ userId: user.get('_id') },
+		process.env.JWT_SECRET,
+		{ expiresIn: process.env.JWT_TOKEN_EXP }
+	);
+	res.cookie('jwttoken', token, { httpOnly: true, maxAge: process.env.COOKIES_MAX_AGE })
+		.status(200)
+		.json({ msg: 'login successful' });
 };
 
 export const logout = (req, res) => {
