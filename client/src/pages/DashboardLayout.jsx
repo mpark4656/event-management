@@ -1,10 +1,12 @@
 import DashboardLayoutWrapper from "../styled/pages/DashboardLayoutWrapper";
 import AppContext from "../main";
-import { Outlet } from 'react-router-dom';
+import { useLoaderData, Outlet, redirect, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
+import { toast } from 'react-toastify';
 import DashboardMenuModal from "../components/dashboard/DashboardMenuModal";
 import DashboardNavbar from "../components/dashboard/DashboardNavbar";
 import DashboardSideMenu from "../components/dashboard/DashboardSideMenu";
+import customFetch from '../utils/customFetch.js';
 
 // This is a temporary static notification data.
 const notificationData = [
@@ -29,18 +31,24 @@ const notificationData = [
 		datetime: new Date()
 	},
 ];
-// Temporary static user data
-const userData = {
-	_id: '1',
-	firstName: 'John',
-	lastName: 'Smith'
-}
+
 // Temporary company data
 const companyData = {
 	name: 'My Organization'
 }
 
+export const loader = async () => {
+	try {
+		const response = await customFetch.get('/current-user');
+		return response.data.user;
+	} catch(err) {
+		toast.warn('Login required', {toastId: 'toast-login-required'});
+		return redirect('/login');
+	}
+};
+
 const DashboardLayout = () => {
+	const userData = useLoaderData();
 	const { darkModePref, saveDarkModePref } = useContext(AppContext);
 	const [company, setCompany] = useState(companyData);
 	const [user, setUser] = useState(userData);
@@ -50,6 +58,7 @@ const DashboardLayout = () => {
 	const [showProfileMenu, setShowProfileMenu] = useState(false);
 	const [showNewNotifications, setShowNewNotifications] = useState(false);
 	const [showUserMenu, setShowUserMenu ] = useState(true);
+	const navigate = useNavigate();
 
 	const removeNotificationItem = (id) => {
 		setNotificationItems(items => {
@@ -70,6 +79,13 @@ const DashboardLayout = () => {
 			&& !event.target.closest('.notification-container')) setShowNewNotifications(false);
 		if(event.target.closest('.modal-close')) setShowMenuModal(false);
 	};
+	const logout = async () => {
+		try {
+			await customFetch.get('/logout');
+			toast.success('Successfully logged out', {toastId: 'toast-logout-success'});
+		} catch(err) {}
+		navigate('/');
+	};
 
 	return (
 		<DashboardLayoutWrapper onClick={closeTransientItems} className={isDarkMode ? 'dark-mode' : ''}>
@@ -78,6 +94,7 @@ const DashboardLayout = () => {
 				toggleMenuModal={toggleMenuModal}
 				isDarkMode={isDarkMode}
 				toggleDarkMode={toggleDarkMode}
+				logout={logout}
 			/>
 			<DashboardNavbar
 				isDarkMode={isDarkMode}
@@ -90,6 +107,7 @@ const DashboardLayout = () => {
 				toggleProfileMenu={toggleProfileMenu}
 				showNewNotifications={showNewNotifications}
 				toggleNewNotificationList={toggleNewNotificationList}
+				logout={logout}
 			/>
 			<DashboardSideMenu
 				showUserMenu={showUserMenu}

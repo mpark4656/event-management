@@ -9,7 +9,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 
 const DashboardNavbar = ({
 	isDarkMode, toggleDarkMode, toggleMenuModal, user, notificationItems, removeNotificationItem,
-	showProfileMenu, toggleProfileMenu, showNewNotifications, toggleNewNotificationList
+	showProfileMenu, toggleProfileMenu, showNewNotifications, toggleNewNotificationList, logout
 }) => {
 	return (
 		<DashboardNavbarWrapper>
@@ -47,7 +47,7 @@ const DashboardNavbar = ({
 					<Link className="profile-menu-item" to="/dashboard/notification">
 						Notifications
 					</Link>
-					<Link className="profile-menu-item">
+					<Link className="profile-menu-item" onClick={logout}>
 						Logout
 					</Link>
 				</ul>

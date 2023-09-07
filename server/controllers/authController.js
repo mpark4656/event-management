@@ -5,14 +5,14 @@ import { BadRequestError } from '../middleware/errorMiddleware.js';
 
 export const login = async (req, res) => {
 	if(!req.body.email || !req.body.password) {
-		throw new BadRequestError('email and password are required');
+		throw new BadRequestError('Email and password are required');
 	}
 	const user = await User.findOne({ email: req.body.email.toLowerCase() });
 	if(!user) {
-		throw new BadRequestError('incorrect email or password');
+		throw new BadRequestError('Incorrect email or password');
 	}
 	if(!await compare(req.body.password, user.get('password'))) {
-		throw new BadRequestError('incorrect email or password');
+		throw new BadRequestError('Incorrect email or password');
 	}
 	var token = jwt.sign(
 		{ userId: user.get('_id') },
@@ -21,11 +21,11 @@ export const login = async (req, res) => {
 	);
 	res.cookie('jwttoken', token, { httpOnly: true, maxAge: process.env.COOKIES_MAX_AGE })
 		.status(200)
-		.json({ msg: 'login successful' });
+		.json({ msg: 'Login successful' });
 };
 
 export const logout = (req, res) => {
-	res.clearCookie('jwttoken').status(202).json({ msg: 'logout successful' }).end();
+	res.clearCookie('jwttoken').status(202).json({ msg: 'Logout successful' }).end();
 }
 
 export const getCurrentUser = async (req, res) => {

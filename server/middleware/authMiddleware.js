@@ -7,11 +7,11 @@ import User from '../models/UserModel.js';
 import { UnauthenticatedError, UnauthorizedError } from './errorMiddleware.js';
 
 const findUserFromJWTToken = async (token) => {
-	if(!token) throw new UnauthenticatedError('unauthenticated');
+	if(!token) throw new UnauthenticatedError('Unauthenticated');
 	const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-	if(!decodedToken) throw new UnauthenticatedError('unauthenticated');
+	if(!decodedToken) throw new UnauthenticatedError('Unauthenticated');
 	const user = await User.findOne({ _id: decodedToken.userId });
-	if(!user) throw new UnauthenticatedError('unauthenticated');
+	if(!user) throw new UnauthenticatedError('Unauthenticated');
 	return user;
 };
 
@@ -27,7 +27,7 @@ export const authorize = (roles) => {
 	return async (req, res, next) => {
 		const user = await findUserFromJWTToken(req.cookies.jwttoken);
 		req.body.userId = user.get('_id');
-		if(!roles.includes(user.get('role'))) throw new UnauthorizedError('unauthorized');
+		if(!roles.includes(user.get('role'))) throw new UnauthorizedError('Unauthorized');
 		next();
 	};
 };

@@ -9,7 +9,7 @@ import { FaUser } from 'react-icons/fa';
 import adminMenuItems from '../../constants/AdminMenuItems.js';
 import managementMenuItems from '../../constants/ManagementMenuItems.js';
 
-const DashboardMenuModal = ({showMenuModal, toggleMenuModal, isDarkMode, toggleDarkMode}) => {
+const DashboardMenuModal = ({showMenuModal, toggleMenuModal, isDarkMode, toggleDarkMode, logout}) => {
 	return (
 		<DashboardMenuModalWrapper className={showMenuModal ? '' : 'modal-hidden'}>
 			<div className="modal-menu">
@@ -34,7 +34,7 @@ const DashboardMenuModal = ({showMenuModal, toggleMenuModal, isDarkMode, toggleD
 							<Link className="modal-menu-icon modal-close" to="/dashboard/notification">
 								<IoNotificationsOutline size="2em" title="Notifications" />
 							</Link>
-							<Link className="modal-menu-icon modal-close">
+							<Link className="modal-menu-icon modal-close" onClick={logout}>
 								<IoMdLogOut size="2em" title="Logout" />
 							</Link>
 						</div>

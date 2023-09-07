@@ -4,7 +4,7 @@ import ProfileButtonWrapper from '../../styled/components/dashboard/ProfileButto
 
 const ProfileButton = ({user, id, onClick}) => {
 	// Temporary name
-	const displayName = user.firstName;
+	const displayName = user.name;
 	return (
 		<ProfileButtonWrapper id={id} onClick={onClick}>
 			<FaUser />{displayName}<AiFillCaretDown/>

@@ -16,7 +16,7 @@ const saveDarkModePref = (isDarkMode) => {
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<AppContext.Provider value={{darkModePref, saveDarkModePref, applicationName}}>
-			<ToastContainer />
+			<ToastContainer position="top-center" />
 			<App />
 		</AppContext.Provider>
 	</React.StrictMode>

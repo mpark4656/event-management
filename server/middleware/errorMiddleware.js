@@ -35,7 +35,7 @@ export class NotFoundError extends CustomError {
 
 const errorMiddleware = (err, req, res, next) => {
 	const statusCode = err.statusCode || 500;
-	const message = err.message || 'internal server error';
+	const message = err.message || 'Internal server error';
 	console.log(err);
 	res.status(statusCode).json({ msg: message });
 };
