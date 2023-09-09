@@ -21,6 +21,8 @@ import {
 	ErrorPage
 } from './pages';
 import { loginAction } from './pages/LoginPage';
+import { loader as loginLoader } from './pages/LoginPage';
+import { loader as registerLoader } from './pages/RegisterPage';
 import { registerAction } from './pages/RegisterPage';
 import { loader as dashboardLayoutLoader } from './pages/DashboardLayout';
 
@@ -35,10 +37,12 @@ const router = createBrowserRouter([
 		},{
 			path: 'register',
 			element: <RegisterPage/>,
+			loader: registerLoader,
 			action: registerAction
 		},{
 			path: 'login',
 			element: <LoginPage/>,
+			loader: loginLoader,
 			action: loginAction
 		},{
 			path: 'dashboard',

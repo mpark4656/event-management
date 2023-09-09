@@ -8,6 +8,15 @@ import { AiOutlineMail } from 'react-icons/ai';
 import { Form, useNavigation, redirect, Link } from 'react-router-dom';
 import customFetch from '../utils/customFetch.js';
 
+export const loader = async () => {
+	try {
+		await customFetch.get('/current-user');
+		return redirect('/dashboard');
+	} catch (error) {
+		return error;
+	}
+};
+
 export const loginAction = async ({ request }) => {
 	try {
 		const formData = await request.formData();

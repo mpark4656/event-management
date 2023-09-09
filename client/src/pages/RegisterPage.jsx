@@ -4,11 +4,16 @@ import BasicTextField from '../components/BasicTextField';
 import BasicButton from '../components/BasicButton';
 import { AiOutlineMail } from 'react-icons/ai';
 import { FaUser } from 'react-icons/fa';
-import { Form, useNavigation, Link } from 'react-router-dom';
+import { Form, useNavigation, Link, redirect } from 'react-router-dom';
+import customFetch from '../utils/customFetch.js';
 
-const initialState = {
-	value: '',
-	valid: true
+export const loader = async () => {
+	try {
+		await customFetch.get('/current-user');
+		return redirect('/dashboard');
+	} catch (error) {
+		return error;
+	}
 };
 
 export const registerAction = async ({ request }) => {
