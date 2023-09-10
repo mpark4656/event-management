@@ -114,7 +114,7 @@ const DashboardLayout = () => {
 				setShowUserMenu={setShowUserMenu}
 				company={company}
 			/>
-			<section className={showUserMenu ? 'section-left-margin' : ''}><Outlet/></section>
+			<section className={showUserMenu ? 'section-left-margin' : ''}><Outlet context={{ isDarkMode: isDarkMode }}/></section>
 		</DashboardLayoutWrapper>
 	);
 };

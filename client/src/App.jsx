@@ -25,6 +25,7 @@ import { loader as loginLoader } from './pages/LoginPage';
 import { loader as registerLoader } from './pages/RegisterPage';
 import { registerAction } from './pages/RegisterPage';
 import { loader as dashboardLayoutLoader } from './pages/DashboardLayout';
+import { loader as accountLoader } from './pages/dashboard/AccountPage';
 
 const router = createBrowserRouter([
 	{
@@ -68,7 +69,8 @@ const router = createBrowserRouter([
 				element: <ReportPage />
 			},{
 				path: 'account',
-				element: <AccountPage />
+				element: <AccountPage />,
+				loader: accountLoader
 			},{
 				path: 'notice-admin',
 				element: <NoticeAdminPage />

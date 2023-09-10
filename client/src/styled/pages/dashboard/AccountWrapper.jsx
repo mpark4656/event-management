@@ -6,10 +6,9 @@ const AccountWrapper = styled(SectionContainerWrapper)`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 2em;
-	img {
-		width: 30%;
-		min-width: 300px;
+	gap: 1em;
+	h1 {
+		font-size: 2em;
 	}
 `;
 
