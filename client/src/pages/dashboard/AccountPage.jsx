@@ -1,7 +1,8 @@
 import AccountWrapper from '../../styled/pages/dashboard/AccountWrapper';
 import PaginationTable from '../../components/dashboard/PaginationTable';
+import AccountFilterPanel from '../../components/dashboard/AccountFilterPanel';
 import { useState } from 'react';
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, Form } from 'react-router-dom'
 import customFetch from '../../utils/customFetch.js';
 
 export const loader = async () => {
@@ -14,8 +15,7 @@ export const loader = async () => {
 }
 
 const AccountPage = () => {
-	const userData = useLoaderData();
-	const [ data, setData ] = useState(userData);
+	const [ userData, setUserData ] = useState(useLoaderData());
 	const tableMetadata = {
 		rowsPerPageOptions: [5, 10, 15],
 		headers: [{
@@ -57,10 +57,11 @@ const AccountPage = () => {
 	return (
 		<AccountWrapper>
 			<h1>User Account Setup</h1>
+			<AccountFilterPanel setUserData={setUserData} />
 			<PaginationTable
 				metadata={tableMetadata}
-				rowObjects={data}
-				setRowObjects={setData}
+				data={userData}
+				setData={setUserData}
 			/>
 		</AccountWrapper>
 	)

@@ -71,7 +71,7 @@ const DashboardMenuModalWrapper = styled.nav`
 		color: var(--white);
 		background-color: var(--primary-400);
 	}
-	@media screen and (width >= 900px) {
+	@media screen and (width >= 1000px) {
 		& {
 			display: none;
 		}

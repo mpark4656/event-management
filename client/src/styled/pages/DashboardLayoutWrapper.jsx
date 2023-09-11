@@ -19,7 +19,7 @@ const DashboardLayoutWrapper = styled.main`
 	.section-left-margin {
 		margin-left: 21em;
 	}
-	@media screen and (width < 900px) {
+	@media screen and (width < 1000px) {
 		section, .section-left-margin {
 			margin-left: 0;
 		}

@@ -81,7 +81,7 @@ const DashboardSideMenuWrapper = styled.aside`
 		overflow: hidden;
 		max-height: 0;
 	}
-	@media screen and (width < 900px) {
+	@media screen and (width < 1000px) {
 		& {
 			display: none;
 		}

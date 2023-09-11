@@ -31,13 +31,15 @@ const initColumnSortStates = (headers) => {
 	return initSortStates;
 };
 
-const PaginationTable = ({ metadata, rowObjects, setRowObjects }) => {
+const PaginationTable = ({ metadata, data, setData }) => {
 	const [ page, setPage ] = useState(0);
 	const [ rowsPerPage, setRowsPerPage ] = useState(metadata.rowsPerPageOptions[0]);
 	const [ columnSortStates, setColumnSortStates] = useState(initColumnSortStates(metadata.headers));
+	// A hidden field on the data record indicates if that record has been filtered out
+	const filteredData = data.filter(obj => !obj._hidden);
 	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows =
-		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowObjects.length) : 0;
+		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredData.length) : 0;
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
 	};
@@ -59,24 +61,22 @@ const PaginationTable = ({ metadata, rowObjects, setRowObjects }) => {
 			});
 		}
 	}
-	const sortRowObjects = (field, direction) => {
-		setRowObjects(objects => {
-			return objects.toSorted((object1, object2) => {
-				if(direction === 'ascending') 
-					return object1[field] > object2[field] ? 1 : -1;
-				if(direction === 'descending')
-					return object1[field] < object2[field] ? 1 : -1;
-			});
-		});
+	const sortData = (field, direction) => {
+		setData(objects => objects.toSorted((object1, object2) => {
+			if(direction === 'ascending') 
+				return object1[field] > object2[field] ? 1 : -1;
+			if(direction === 'descending')
+				return object1[field] < object2[field] ? 1 : -1;
+		}));
 	}
 	// After column sort states are updated, sort the data
 	useEffect(() => {
 		for(const [key, value] of Object.entries(columnSortStates)) {
 			if(value.sorted) {
-				sortRowObjects(key, value.direction);
+				sortData(key, value.direction);
 			}
 		}
-	}, [columnSortStates])
+	}, [columnSortStates]);
 	return (
 		<TableContainer component={Paper}>
 			<TableWrapper>
@@ -107,9 +107,16 @@ const PaginationTable = ({ metadata, rowObjects, setRowObjects }) => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
+					{filteredData.length == 0 &&
+						<TableRow>
+							<TableCellWrapper colSpan={metadata.headers.length + (metadata.rowActions ? 1 : 0)}>
+								No records to display
+							</TableCellWrapper>
+						</TableRow>
+					}
 					{(rowsPerPage > 0
-						? rowObjects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-						: rowObjects).map((object, objIndex) => {
+						? filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+						: filteredData).map((object, objIndex) => {
 							return (
 								<TableRow key={objIndex}>
 									{metadata.headers.map((header, headerIndex) => {
@@ -151,7 +158,7 @@ const PaginationTable = ({ metadata, rowObjects, setRowObjects }) => {
 						<PaginationTableWrapper
 							rowsPerPageOptions={ metadata.rowsPerPageOptions }
 							colSpan={metadata.headers.length + (metadata.rowActions ? 1 : 0)}
-							count={rowObjects.length}
+							count={filteredData.length}
 							rowsPerPage={rowsPerPage}
 							page={page}
 							slotProps={{

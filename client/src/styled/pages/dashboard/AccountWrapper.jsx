@@ -6,7 +6,7 @@ const AccountWrapper = styled(SectionContainerWrapper)`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 1em;
+	gap: 3em;
 	h1 {
 		font-size: 2em;
 	}

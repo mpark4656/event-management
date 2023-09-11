@@ -99,7 +99,7 @@ const DashboardNavbarWrapper = styled.nav`
 	.profile-menu-item:hover {
 		background-color: var(--primary-800);
 	}
-	@media screen and (width < 900px) {
+	@media screen and (width < 1000px) {
 		.user-menu {
 			display: none;
 		}
