@@ -1,7 +1,7 @@
 import LoginRegisterWrapper from '../styled/pages/LoginRegisterWrapper';
 import { toast } from 'react-toastify';
 import logo from '../assets/images/logo.png';
-import BasicTextField from '../components/BasicTextField';
+import IconTextField from '../components/IconTextField';
 import BasicButton from '../components/BasicButton';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { AiOutlineMail } from 'react-icons/ai';
@@ -39,11 +39,11 @@ const LoginPage = () => {
 			<Form method="post">
 				<img src={logo}></img>
 				<h1>Login</h1>
-				<BasicTextField
+				<IconTextField
 					label="email" id="email" type="email"
 					icon={AiOutlineMail} name="email" placeholder="Email address" required
 				/>
-				<BasicTextField
+				<IconTextField
 					label="password" id="password" type="password"
 					icon={RiLockPasswordLine} name="password" placeholder="Password" required
 				/>

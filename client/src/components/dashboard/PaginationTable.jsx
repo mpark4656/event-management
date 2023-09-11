@@ -61,14 +61,12 @@ const PaginationTable = ({ metadata, rowObjects, setRowObjects }) => {
 	}
 	const sortRowObjects = (field, direction) => {
 		setRowObjects(objects => {
-			const sortedObjects = [...objects];
-			sortedObjects.sort((object1, object2) => {
+			return objects.toSorted((object1, object2) => {
 				if(direction === 'ascending') 
 					return object1[field] > object2[field] ? 1 : -1;
 				if(direction === 'descending')
 					return object1[field] < object2[field] ? 1 : -1;
 			});
-			return sortedObjects;
 		});
 	}
 	// After column sort states are updated, sort the data

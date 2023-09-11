@@ -1,6 +1,6 @@
 import LoginRegisterWrapper from '../styled/pages/LoginRegisterWrapper';
 import logo from '../assets/images/logo.png';
-import BasicTextField from '../components/BasicTextField';
+import IconTextField from '../components/IconTextField';
 import BasicButton from '../components/BasicButton';
 import { AiOutlineMail } from 'react-icons/ai';
 import { FaUser } from 'react-icons/fa';
@@ -32,11 +32,11 @@ const RegisterPage = () => {
 			<Form method="post">
 				<img src={logo}></img>
 				<h1>Register</h1>
-				<BasicTextField
+				<IconTextField
 					label="email" id="email" type="email"
 					icon={AiOutlineMail} name="email" placeholder="Enter your email" required
 				/>
-				<BasicTextField
+				<IconTextField
 					label="name" id="name" type="text"
 					icon={FaUser} name="name" placeholder="Enter your name" required
 				/>
