@@ -41,23 +41,19 @@ const DashboardMenuModal = ({showMenuModal, toggleMenuModal, isDarkMode, toggleD
 						<div className="modal-app-menu">
 							<p className="modal-app-menu-list-header">management</p>
 							<ul className="modal-app-menu-list">
-								{managementMenuItems.map(item => {
-									return (
-										<Link key={item.key} className="modal-menu-item modal-close" to={item.path}>
-											{item.label}
-										</Link>
-									);
-								})}
+								{managementMenuItems.map(item => (
+									<Link key={item.key} className="modal-menu-item modal-close" to={item.path}>
+										{item.label}
+									</Link>
+								))}
 							</ul>
 							<p className="modal-app-menu-list-header">administration</p>
 							<ul className="modal-app-menu-list">
-								{adminMenuItems.map(item => {
-									return (
-										<Link key={item.key} className="modal-menu-item modal-close" to={item.path}>
-											{item.label}
-										</Link>
-									);
-								})}
+								{adminMenuItems.map(item => (
+									<Link key={item.key} className="modal-menu-item modal-close" to={item.path}>
+										{item.label}
+									</Link>
+								))}
 							</ul>
 						</div>
 					</div>

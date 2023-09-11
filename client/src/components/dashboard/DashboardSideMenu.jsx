@@ -39,13 +39,11 @@ const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company}) => {
 					</li>
 					<li className="app-menu-nested-list">
 						<ul>
-							{managementMenuItems.map(item => {
-								return (
-									<Link key={item.key} className="app-menu-item nested" to={item.path}>
-										{item.label}
-									</Link>
-								);
-							})}
+							{managementMenuItems.map(item => (
+								<Link key={item.key} className="app-menu-item nested" to={item.path}>
+									{item.label}
+								</Link>
+							))}
 						</ul>
 					</li>
 					<li className={`app-menu-item ${showAdminMenu ? '' : 'app-menu-item-collapsed'}`}
@@ -55,13 +53,11 @@ const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company}) => {
 					</li>
 					<li className="app-menu-nested-list">
 						<ul>
-							{adminMenuItems.map(item => {
-								return (
-									<Link key={item.key} className="app-menu-item nested" to={item.path}>
-										{item.label}
-									</Link>
-								);
-							})}
+							{adminMenuItems.map(item => (
+								<Link key={item.key} className="app-menu-item nested" to={item.path}>
+									{item.label}
+								</Link>
+							))}
 						</ul>
 					</li>
 				</ul>

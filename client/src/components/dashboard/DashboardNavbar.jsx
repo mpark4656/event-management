@@ -28,14 +28,12 @@ const DashboardNavbar = ({
 				<NotificationBell id="notification-bell" count={notificationItems.length} onClick={toggleNewNotificationList}/>
 				<div className={`notification-container ${showNewNotifications ? '' : 'notifications-collapsed'}`}>
 					<ul className="notification-list">
-						{notificationItems.length > 0 && notificationItems.map(item => {
-							return (
-								<NotificationItem key={item._id}
-									notification={item}
-									removeNotificationItem={removeNotificationItem}
-								/>
-							);
-						})}
+						{notificationItems.length > 0 && notificationItems.map(item => (
+							<NotificationItem key={item._id}
+								notification={item}
+								removeNotificationItem={removeNotificationItem}
+							/>
+						))}
 						{notificationItems.length == 0 && <p className="no-notification-msg">no new notifications</p>}
 					</ul>
 				</div>

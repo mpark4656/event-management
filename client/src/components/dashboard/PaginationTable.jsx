@@ -82,27 +82,25 @@ const PaginationTable = ({ metadata, data, setData }) => {
 			<TableWrapper>
 				<TableHead>
 					<TableRow>
-						{metadata.headers.map((header, index) => {
-							return (
-								<TableCellWrapper key={index}>
-									{!header.sortable && header.label}
-									{header.sortable &&
-										<div className="sortable-header" onClick={sortColumn(header.field)}>
-											{header.label}
-											{columnSortStates[header.field].direction == '' &&
-												<FaSort />
-											}
-											{columnSortStates[header.field].direction == 'ascending' &&
-												<FaSortUp />
-											}
-											{columnSortStates[header.field].direction == 'descending' &&
-												<FaSortDown />
-											}
-										</div>
-									}
-								</TableCellWrapper>
-							);
-						})}
+						{metadata.headers.map((header, index) => (
+							<TableCellWrapper key={index}>
+								{!header.sortable && header.label}
+								{header.sortable &&
+									<div className="sortable-header" onClick={sortColumn(header.field)}>
+										{header.label}
+										{columnSortStates[header.field].direction == '' &&
+											<FaSort />
+										}
+										{columnSortStates[header.field].direction == 'ascending' &&
+											<FaSortUp />
+										}
+										{columnSortStates[header.field].direction == 'descending' &&
+											<FaSortDown />
+										}
+									</div>
+								}
+							</TableCellWrapper>
+						))}
 						{ metadata.rowActions && <TableCellWrapper>Actions</TableCellWrapper> }
 					</TableRow>
 				</TableHead>
@@ -116,37 +114,33 @@ const PaginationTable = ({ metadata, data, setData }) => {
 					}
 					{(rowsPerPage > 0
 						? filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-						: filteredData).map((object, objIndex) => {
-							return (
-								<TableRow key={objIndex}>
-									{metadata.headers.map((header, headerIndex) => {
-										const val = object[header.field];
-										return (
-											<TableCellWrapper key={headerIndex}>
-												{header.customRender ? header.customRender(val) : val}
-											</TableCellWrapper>
-										);
-									})}
-									{ metadata.rowActions &&
-										<TableCellWrapper>
-											<div className="btn-group">
-												{metadata.rowActions.map((action, actionIndex) => {
-													return (
-														<button key={actionIndex}
-															type="button"
-															className={action.className}
-															data-target_id={object[action.idField]}
-															onClick={action.func}>
-															{action.label}
-														</button>);
-												})}
-											</div>
+						: filteredData).map((object, objIndex) => (
+							<TableRow key={objIndex}>
+								{metadata.headers.map((header, headerIndex) => {
+									const val = object[header.field];
+									return (
+										<TableCellWrapper key={headerIndex}>
+											{header.customRender ? header.customRender(val) : val}
 										</TableCellWrapper>
-									}
-								</TableRow>
-							)
-						}
-					)}
+									);
+								})}
+								{ metadata.rowActions &&
+									<TableCellWrapper>
+										<div className="btn-group">
+											{metadata.rowActions.map((action, actionIndex) => (
+												<button key={actionIndex}
+													type="button"
+													className={action.className}
+													data-target_id={object[action.idField]}
+													onClick={action.func}>
+													{action.label}
+												</button>
+											))}
+										</div>
+									</TableCellWrapper>
+								}
+							</TableRow>
+						))}
 					{emptyRows > 0 && (
 						<TableRow style={{ height: 60 * emptyRows }}>
 							<TableCellWrapper colSpan={metadata.headers.length + (metadata.rowActions ? 1 : 0)} />
