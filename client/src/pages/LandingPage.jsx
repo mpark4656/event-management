@@ -94,7 +94,7 @@ const LandingPage = () => {
 					</div>
 					<div className="img-container">
 						<div className="img-splash">
-							<img src={eventImg} title="phone" />
+							<img src={eventImg} alt="phone" />
 						</div>
 					</div>
 				</div>

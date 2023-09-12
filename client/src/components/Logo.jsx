@@ -13,7 +13,7 @@ const Logo = ({className, theme, to}) => {
 		};
 		return (
 			<NavigateLogoWrapper className={className} onClick={onClickHandler}>
-				<img src={logoImg} />
+				<img src={logoImg} alt="Event.io Logo" />
 				<span className={theme}>{applicationName}</span>
 			</NavigateLogoWrapper>
 		);

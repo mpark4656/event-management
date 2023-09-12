@@ -1,8 +1,10 @@
 import AccountWrapper from '../../styled/pages/dashboard/AccountWrapper';
 import PaginationTable from '../../components/dashboard/PaginationTable';
 import AccountFilterPanel from '../../components/dashboard/AccountFilterPanel';
+import { AiOutlineUserAdd } from 'react-icons/ai';
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom'
+import { toast } from 'react-toastify';
 import customFetch from '../../utils/customFetch.js';
 
 export const loader = async () => {
@@ -43,21 +45,31 @@ const AccountPage = () => {
 		rowActions: [{
 			label: 'View',
 			handler: (event) => {
-				console.log('View Clicked', event.target.dataset.target_id)
+				console.log('View Clicked', event.target.dataset.row_object_id)
 			},
 			idField: '_id',
 			className: 'btn-primary'
 		},{
 			label: 'Edit',
 			handler: (event) => {
-				console.log('Edit Clicked', event.target.dataset.target_id);
+				console.log('Edit Clicked', event.target.dataset.row_object_id);
 			},
 			idField: '_id',
 			className: 'btn-warning'
 		},{
 			label: 'Delete',
-			handler: (event) => {
-				console.log('Delete Clicked', event.target.dataset.target_id)
+			handler: async (event) => {
+				try {
+					const userId = event.target.dataset.row_object_id;
+					const user = userData.find(user => user._id === userId);
+					if(confirm(`Are you sure you want to delete ${user.email}?`)) {
+						await customFetch.delete(`/admin/user/${userId}`);
+						setUserData(users => users.filter(user => user._id !== userId));
+						toast.success(`Successfully removed ${user.email}`, {toastId: 'delete-user-success'});
+					}
+				} catch(error) {
+					toast.error(err.response.data.msg, {toastId: 'delete-user-error'});
+				}
 			},
 			idField: '_id',
 			className: 'btn-danger'
@@ -80,6 +92,7 @@ const AccountPage = () => {
 	return (
 		<AccountWrapper>
 			<h1>User Account Setup</h1>
+			<AiOutlineUserAdd className="user-add-btn" title="Add New User" />
 			<AccountFilterPanel setUserData={setUserData} />
 			<PaginationTable
 				metadata={tableMetadata}

@@ -7,7 +7,7 @@ const AccountFilterPanel = ({ setUserData }) => {
 	const [ emailValue, setEmailValue ] = useState('');
 	const [ nameValue, setNameValue ] = useState('');
 	const [ userRoleValue, setUserRoleValue ] = useState('');
-	const filterData = () => {
+	const filterData = (event) => {
 		setUserData(data => data.map(user => {
 			const emailMatch = user.email.toLowerCase().includes(emailValue.toLowerCase());
 			const nameMatch = user.name.toLowerCase().includes(nameValue.toLowerCase());
@@ -15,6 +15,7 @@ const AccountFilterPanel = ({ setUserData }) => {
 			user._hidden = !(emailMatch && nameMatch && roleMatch);
 			return user;
 		}));
+		event.preventDefault();
 	}
 	const clearFilter = () => {
 		setUserData(data => data.map(user => {
@@ -26,7 +27,7 @@ const AccountFilterPanel = ({ setUserData }) => {
 		setUserRoleValue('');
 	}
 	return (
-		<AccountFilterPanelWrapper>
+		<AccountFilterPanelWrapper onSubmit={filterData}>
 			<BasicTextField id="email" name="email" placeholder="Filter by email"
 				initialValue={emailValue} setValue={setEmailValue}
 			/>
@@ -37,7 +38,7 @@ const AccountFilterPanel = ({ setUserData }) => {
 				initialValue={userRoleValue} setValue={setUserRoleValue}
 			/>
 			<div className="btn-container">
-				<BasicButton label="Filter" type="button" className="btn-primary" onClick={filterData}/>
+				<BasicButton label="Filter" type="submit" className="btn-primary" />
 				<BasicButton label="Clear Filter" type="button" className="btn-warning" onClick={clearFilter}/>
 			</div>
 		</AccountFilterPanelWrapper>

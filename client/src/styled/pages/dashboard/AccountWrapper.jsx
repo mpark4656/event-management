@@ -7,6 +7,11 @@ const AccountWrapper = styled(SectionContainerWrapper)`
 	align-items: center;
 	justify-content: center;
 	gap: 3em;
+	.user-add-btn {
+		font-size: 2em;
+		align-self: center;
+		cursor: pointer;
+	}
 	h1 {
 		font-size: 2em;
 	}

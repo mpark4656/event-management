@@ -30,7 +30,7 @@ const RegisterPage = () => {
 	return (
 		<LoginRegisterWrapper>
 			<Form method="post">
-				<img src={logo}></img>
+				<img src={logo} alt="Event.io Logo" />
 				<h1>Register</h1>
 				<IconTextField
 					label="email" id="email" type="email"

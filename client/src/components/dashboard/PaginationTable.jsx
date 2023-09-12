@@ -28,8 +28,9 @@ import { useState } from 'react';
  *				}],
  *				rowActions: [{		// Adds an extra column with buttons for performing certain actions for each row
  *					label: 'View',
- *					handler: func	// A function that handles the click event on the button
- *					idField: '_id'	// A unique id for each data row. Usually the id of the data object
+ *					handler: func,	// A function that handles the click event on the button
+ *					idField: '_id',	// A unique id for each data row. Usually the id of the data object.
+ *									This id will be set as the value for data-row_object_id, which your handler can access.
  *					className: 'btn-primary'	// CSS class for styling the button
  *				}]
  *			}
@@ -122,7 +123,7 @@ const PaginationTable = ({ metadata, data, sortStates, sortData }) => {
 												<button key={actionIndex}
 													type="button"
 													className={action.className}
-													data-target_id={object[action.idField]}
+													data-row_object_id={object[action.idField]}
 													onClick={action.handler}>
 													{action.label}
 												</button>
