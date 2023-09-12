@@ -2,7 +2,7 @@ import AccountWrapper from '../../styled/pages/dashboard/AccountWrapper';
 import PaginationTable from '../../components/dashboard/PaginationTable';
 import AccountFilterPanel from '../../components/dashboard/AccountFilterPanel';
 import { useState } from 'react';
-import { useLoaderData, Form } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 import customFetch from '../../utils/customFetch.js';
 
 export const loader = async () => {
@@ -12,47 +12,70 @@ export const loader = async () => {
 	} catch (error) {
 		return error;
 	}
-}
+};
+
+const initialSortStates = [{
+	field: 'email',
+	direction: ''
+},{
+	field: 'name',
+	direction: ''
+},{
+	field: 'role',
+	direction: ''
+}];
 
 const AccountPage = () => {
 	const [ userData, setUserData ] = useState(useLoaderData());
+	const [ sortStates, setSortStates ] = useState(initialSortStates);
 	const tableMetadata = {
 		rowsPerPageOptions: [5, 10, 15],
 		headers: [{
 			label: 'Email',
-			field: 'email',
-			sortable: true
+			field: 'email'
 		},{
 			label: 'Name',
-			field: 'name',
-			sortable: true
+			field: 'name'
 		},{
 			label: 'User Role',
-			field: 'role',
-			sortable: true
+			field: 'role'
 		}],
 		rowActions: [{
 			label: 'View',
-			func: (event) => {
+			handler: (event) => {
 				console.log('View Clicked', event.target.dataset.target_id)
 			},
 			idField: '_id',
 			className: 'btn-primary'
 		},{
 			label: 'Edit',
-			func: (event) => {
+			handler: (event) => {
 				console.log('Edit Clicked', event.target.dataset.target_id);
 			},
 			idField: '_id',
 			className: 'btn-warning'
 		},{
 			label: 'Delete',
-			func: (event) => {
+			handler: (event) => {
 				console.log('Delete Clicked', event.target.dataset.target_id)
 			},
 			idField: '_id',
 			className: 'btn-danger'
 		}]
+	};
+	const resetSortStates = () => {
+		setSortStates(initialSortStates);
+	};
+	const sortUserData = (field) => {
+		const direction = sortStates.find(state => state.field === field).direction === 'desc' ? 'asc' : 'desc';
+		setSortStates(states => states.map(state => {
+			state.direction = state.field === field ? direction : '';
+			return state;
+		}));
+		setUserData(users => users.toSorted((first, second) => {
+			if(direction === 'asc') return first[field].toLowerCase() > second[field].toLowerCase() ? 1 : -1;
+			if(direction === 'desc') return first[field].toLowerCase() < second[field].toLowerCase() ? 1 : -1;
+		}));
 	};
 	return (
 		<AccountWrapper>
@@ -61,7 +84,8 @@ const AccountPage = () => {
 			<PaginationTable
 				metadata={tableMetadata}
 				data={userData}
-				setData={setUserData}
+				sortStates={sortStates}
+				sortData={sortUserData}
 			/>
 		</AccountWrapper>
 	)

@@ -9,32 +9,49 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 /**
- * This initialize all column sort states to Not Sorted.
- * A column sort state specifies if the column is currently sorted and if so
- * in which direction.
- * Only one column can be sorted at a time.
- * @param {*} headers Table column headers
- * @returns initialized column sort states
+ * A table that supports pagination, filtering and sorting.
+ * 
+ * To filter any rows, add _hidden attribute to the corresponding data item and set it to false.
+ * To sort, supply proper sortStates react state and sortData function.
+ * 
+ * @param {Object} props
+ * {
+ *		metadata: contains information about how the table should be structured
+ *			{
+ *				rowsPerPageOptions: [5, 10, 15],   // Rows per page options in the select element
+ *				headers: [{
+ *					label: 'Email',	// Header Label
+ *					field: 'email'	// Corresponds to a field in the row data
+ *					render: func	// An optional function to render the data field in a special way. i.e) All uppercase
+ *				}],
+ *				rowActions: [{		// Adds an extra column with buttons for performing certain actions for each row
+ *					label: 'View',
+ *					handler: func	// A function that handles the click event on the button
+ *					idField: '_id'	// A unique id for each data row. Usually the id of the data object
+ *					className: 'btn-primary'	// CSS class for styling the button
+ *				}]
+ *			}
+ *		data: array of data objects that should be displayed in the rows
+ *			[{
+ *				_id: '1',
+ *				email: 'value1',
+ *				name: 'value2', ...
+ *				_hidden: false | true	// Hides the row in the table if true. Used for filtering.
+ *			}]
+ *		sortStates: contains information about which column can be sorted and maintains the current sort direction
+ *			[{
+ *				field: 'field1',
+ *				direction: '' | 'asc' | 'desc' 
+ *			}]
+ *		sortData: A handler for sorting the data. An ancestor component must implement this function
+ * }
  */
-const initColumnSortStates = (headers) => {
-	const initSortStates = {};
-	headers.forEach(header => {
-		if(header.sortable) {
-			initSortStates[header.field] = {
-				sorted: false,
-				direction: ''
-			};
-		}
-	});
-	return initSortStates;
-};
-
-const PaginationTable = ({ metadata, data, setData }) => {
+const PaginationTable = ({ metadata, data, sortStates, sortData }) => {
 	const [ page, setPage ] = useState(0);
 	const [ rowsPerPage, setRowsPerPage ] = useState(metadata.rowsPerPageOptions[0]);
-	const [ columnSortStates, setColumnSortStates] = useState(initColumnSortStates(metadata.headers));
+	
 	// A hidden field on the data record indicates if that record has been filtered out
 	const filteredData = data.filter(obj => !obj._hidden);
 	// Avoid a layout jump when reaching the last page with empty rows.
@@ -43,40 +60,14 @@ const PaginationTable = ({ metadata, data, setData }) => {
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
 	};
-	const hadleChangeRowsPerPage = (event) => {
+	const handleChangeRowsPerPage = (event) => {
 		setRowsPerPage(parseInt(event.target.value, 10));
 		setPage(0);
 	};
-	const sortColumn = (field) => {
-		return (event) => {
-			setColumnSortStates(states => {
-				const currentState = states[field];
-				const newSortStates = initColumnSortStates(metadata.headers);
-				newSortStates[field].sorted = true;
-				newSortStates[field].direction = 
-					currentState.direction === '' || currentState.direction === 'descending'
-					? 'ascending'
-					: 'descending';
-				return newSortStates;
-			});
-		}
+	const onSortClicked = (event) => {
+		const field = event.target.closest('.sortable-header').dataset.field;
+		sortData(field);
 	}
-	const sortData = (field, direction) => {
-		setData(objects => objects.toSorted((object1, object2) => {
-			if(direction === 'ascending') 
-				return object1[field] > object2[field] ? 1 : -1;
-			if(direction === 'descending')
-				return object1[field] < object2[field] ? 1 : -1;
-		}));
-	}
-	// After column sort states are updated, sort the data
-	useEffect(() => {
-		for(const [key, value] of Object.entries(columnSortStates)) {
-			if(value.sorted) {
-				sortData(key, value.direction);
-			}
-		}
-	}, [columnSortStates]);
 	return (
 		<TableContainer component={Paper}>
 			<TableWrapper>
@@ -84,17 +75,17 @@ const PaginationTable = ({ metadata, data, setData }) => {
 					<TableRow>
 						{metadata.headers.map((header, index) => (
 							<TableCellWrapper key={index}>
-								{!header.sortable && header.label}
-								{header.sortable &&
-									<div className="sortable-header" onClick={sortColumn(header.field)}>
+								{!sortStates?.find(state => state.field === header.field) && header.label}
+								{sortStates?.find(state => state.field === header.field) &&
+									<div className="sortable-header" onClick={onSortClicked} data-field={header.field}>
 										{header.label}
-										{columnSortStates[header.field].direction == '' &&
+										{sortStates?.find(state => state.field === header.field).direction === '' &&
 											<FaSort />
 										}
-										{columnSortStates[header.field].direction == 'ascending' &&
+										{sortStates?.find(state => state.field === header.field).direction === 'asc' &&
 											<FaSortUp />
 										}
-										{columnSortStates[header.field].direction == 'descending' &&
+										{sortStates?.find(state => state.field === header.field).direction === 'desc' &&
 											<FaSortDown />
 										}
 									</div>
@@ -120,7 +111,7 @@ const PaginationTable = ({ metadata, data, setData }) => {
 									const val = object[header.field];
 									return (
 										<TableCellWrapper key={headerIndex}>
-											{header.customRender ? header.customRender(val) : val}
+											{header.render ? header.render(val) : val}
 										</TableCellWrapper>
 									);
 								})}
@@ -132,7 +123,7 @@ const PaginationTable = ({ metadata, data, setData }) => {
 													type="button"
 													className={action.className}
 													data-target_id={object[action.idField]}
-													onClick={action.func}>
+													onClick={action.handler}>
 													{action.label}
 												</button>
 											))}
@@ -165,7 +156,7 @@ const PaginationTable = ({ metadata, data, setData }) => {
 								}
 							}}
 							onPageChange={handleChangePage}
-							onRowsPerPageChange={hadleChangeRowsPerPage}
+							onRowsPerPageChange={handleChangeRowsPerPage}
 						/>
 					</TableRow>
 				</TableFooterWrapper>
