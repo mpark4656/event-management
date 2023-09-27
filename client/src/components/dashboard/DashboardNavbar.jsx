@@ -1,5 +1,6 @@
 import DashboardNavbarWrapper from "../../styled/components/dashboard/DashboardNavbarWrapper";
 import { Link } from 'react-router-dom';
+import { useDashboardContext } from '../../pages/DashboardLayout';
 import Logo from '../Logo';
 import NotificationBell from './NotificationBell';
 import ProfileButton from './ProfileButton';
@@ -7,10 +8,8 @@ import NotificationItem from "./NotificationItem";
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
-const DashboardNavbar = ({
-	isDarkMode, toggleDarkMode, toggleMenuModal, user, notificationItems, removeNotificationItem,
-	showProfileMenu, toggleProfileMenu, showNewNotifications, toggleNewNotificationList, logout
-}) => {
+const DashboardNavbar = ({ toggleMenuModal, showProfileMenu, toggleProfileMenu, showNewNotifications, toggleNewNotificationList }) => {
+	const { user, isDarkMode, toggleDarkMode, notifications, logout } = useDashboardContext();
 	return (
 		<DashboardNavbarWrapper>
 			<div className="logo">
@@ -25,16 +24,15 @@ const DashboardNavbar = ({
 					!isDarkMode && <MdDarkMode size="1.5em" cursor="pointer" onClick={toggleDarkMode}
 					title="Turn On Dark Mode" />
 				}
-				<NotificationBell id="notification-bell" count={notificationItems.length} onClick={toggleNewNotificationList}/>
+				<NotificationBell id="notification-bell" count={notifications.length} onClick={toggleNewNotificationList}/>
 				<div className={`notification-container ${showNewNotifications ? '' : 'notifications-collapsed'}`}>
 					<ul className="notification-list">
-						{notificationItems.length > 0 && notificationItems.map(item => (
+						{notifications.length > 0 && notifications.map(item => (
 							<NotificationItem key={item._id}
 								notification={item}
-								removeNotificationItem={removeNotificationItem}
 							/>
 						))}
-						{notificationItems.length == 0 && <p className="no-notification-msg">no new notifications</p>}
+						{notifications.length == 0 && <p className="no-notification-msg">no new notifications</p>}
 					</ul>
 				</div>
 				<ProfileButton id="profile-btn" onClick={toggleProfileMenu} user={user} />

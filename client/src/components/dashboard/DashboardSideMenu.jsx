@@ -1,13 +1,15 @@
 import DashboardSideMenuWrapper from "../../styled/components/dashboard/DashboardSideMenuWrapper";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDashboardContext } from '../../pages/DashboardLayout';
 import { IoMdArrowDropdown, IoMdArrowDropleft } from 'react-icons/io';
 import { MdArrowForwardIos, MdArrowBackIos, MdAdminPanelSettings, MdEvent } from 'react-icons/md';
 import { SlOrganization } from 'react-icons/sl';
 import adminMenuItems from '../../constants/AdminMenuItems.js';
 import managementMenuItems from '../../constants/ManagementMenuItems.js';
 
-const DashboardSideMenu = ({showUserMenu, setShowUserMenu, company}) => {
+const DashboardSideMenu = ({showUserMenu, setShowUserMenu }) => {
+	const { company } = useDashboardContext();
 	const [showEventMenu, setShowEventMenu] = useState(false);
 	const [showAdminMenu, setShowAdminMenu] = useState(false);
 	const toggleShowUserMenu = () => { setShowUserMenu(value => !value); };

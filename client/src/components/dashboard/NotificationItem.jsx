@@ -1,4 +1,5 @@
 import NotificationItemWrapper from '../../styled/components/dashboard/NotificationItemWrapper';
+import { useDashboardContext } from '../../pages/DashboardLayout';
 import { IoCloseOutline } from 'react-icons/io5';
 import { TfiAnnouncement } from 'react-icons/tfi';
 import { RiCalendarEventLine, RiComputerLine } from 'react-icons/ri';
@@ -6,16 +7,16 @@ import { RiCalendarEventLine, RiComputerLine } from 'react-icons/ri';
 const getTimestampStr = (seconds) => {
 	let res = '';
 	const days = Math.floor(seconds / 60 / 60 / 24);
-	const hours = Math.floor(seconds / 60 / 60);
-	const minutes = Math.floor(seconds / 60);
 	if(days) {
 		res += days + 'd ';
-		seconds -= 60 * 60 * 14 * days;
+		seconds -= 60 * 60 * 24 * days;
 	}
+	const hours = Math.floor(seconds / 60 / 60);
 	if(hours) {
 		res += hours + 'h ';
 		seconds -= 60 * 60 * hours;
 	}
+	const minutes = Math.floor(seconds / 60);
 	if(minutes) {
 		res += minutes + 'm ';
 		seconds -= 60 * minutes;
@@ -24,9 +25,10 @@ const getTimestampStr = (seconds) => {
 	return res;
 };
 
-const NotificationItem = ({ notification, removeNotificationItem }) => {
+const NotificationItem = ({ notification }) => {
+	const { removeNotification } = useDashboardContext();
 	const removeThisItem = () => {
-		removeNotificationItem(notification._id);
+		removeNotification(notification._id);
 	};
 	const seconds = (new Date() - notification.datetime) / 1000;
 	const timestampStr = getTimestampStr(seconds);

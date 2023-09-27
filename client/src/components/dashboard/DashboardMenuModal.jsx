@@ -8,8 +8,10 @@ import { IoNotificationsOutline } from 'react-icons/io5';
 import { FaUser } from 'react-icons/fa';
 import adminMenuItems from '../../constants/AdminMenuItems.js';
 import managementMenuItems from '../../constants/ManagementMenuItems.js';
+import { useDashboardContext } from '../../pages/DashboardLayout';
 
-const DashboardMenuModal = ({showMenuModal, toggleMenuModal, isDarkMode, toggleDarkMode, logout}) => {
+const DashboardMenuModal = ({showMenuModal, toggleMenuModal }) => {
+	const { isDarkMode, toggleDarkMode, logout } = useDashboardContext();
 	return (
 		<DashboardMenuModalWrapper className={showMenuModal ? '' : 'modal-hidden'}>
 			<div className="modal-menu">

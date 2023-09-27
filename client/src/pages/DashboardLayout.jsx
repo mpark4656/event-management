@@ -1,7 +1,7 @@
 import DashboardLayoutWrapper from "../styled/pages/DashboardLayoutWrapper";
 import AppContext from "../main";
 import { useLoaderData, Outlet, redirect, useNavigate } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, createContext } from 'react';
 import { toast } from 'react-toastify';
 import DashboardMenuModal from "../components/dashboard/DashboardMenuModal";
 import DashboardNavbar from "../components/dashboard/DashboardNavbar";
@@ -47,6 +47,8 @@ export const loader = async () => {
 	}
 };
 
+const DashboardContext = createContext();
+
 const DashboardLayout = () => {
 	const userData = useLoaderData();
 	const { darkModePref, saveDarkModePref } = useContext(AppContext);
@@ -54,14 +56,14 @@ const DashboardLayout = () => {
 	const [user, setUser] = useState(userData);
 	const [isDarkMode, setIsDarkMode] = useState(darkModePref);
 	const [showMenuModal, setShowMenuModal] = useState(false);
-	const [notificationItems, setNotificationItems] = useState(notificationData);
+	const [notifications, setNotifications] = useState(notificationData);
 	const [showProfileMenu, setShowProfileMenu] = useState(false);
 	const [showNewNotifications, setShowNewNotifications] = useState(false);
 	const [showUserMenu, setShowUserMenu ] = useState(true);
 	const navigate = useNavigate();
 
-	const removeNotificationItem = (id) => {
-		setNotificationItems(items => {
+	const removeNotification = (id) => {
+		setNotifications(items => {
 			return items.filter(item => item._id != id);
 		});
 	}
@@ -86,37 +88,30 @@ const DashboardLayout = () => {
 		} catch(err) {}
 		navigate('/');
 	};
-
 	return (
-		<DashboardLayoutWrapper onClick={closeTransientItems} className={isDarkMode ? 'dark-mode' : ''}>
-			<DashboardMenuModal
-				showMenuModal={showMenuModal}
-				toggleMenuModal={toggleMenuModal}
-				isDarkMode={isDarkMode}
-				toggleDarkMode={toggleDarkMode}
-				logout={logout}
-			/>
-			<DashboardNavbar
-				isDarkMode={isDarkMode}
-				toggleDarkMode={toggleDarkMode}
-				toggleMenuModal={toggleMenuModal}
-				user={user}
-				notificationItems={notificationItems}
-				removeNotificationItem={removeNotificationItem}
-				showProfileMenu={showProfileMenu}
-				toggleProfileMenu={toggleProfileMenu}
-				showNewNotifications={showNewNotifications}
-				toggleNewNotificationList={toggleNewNotificationList}
-				logout={logout}
-			/>
-			<DashboardSideMenu
-				showUserMenu={showUserMenu}
-				setShowUserMenu={setShowUserMenu}
-				company={company}
-			/>
-			<section className={showUserMenu ? 'section-left-margin' : ''}><Outlet context={{ isDarkMode: isDarkMode }}/></section>
-		</DashboardLayoutWrapper>
+		<DashboardContext.Provider value={{
+			user: user, setUser: setUser,
+			company: company, setCompany: setCompany,
+			notifications: notifications, setNotifications: setNotifications, removeNotification: removeNotification,
+			isDarkMode: isDarkMode, toggleDarkMode: toggleDarkMode,
+			logout: logout
+		}}>
+			<DashboardLayoutWrapper onClick={closeTransientItems} className={isDarkMode ? 'dark-mode' : ''}>
+				<DashboardMenuModal showMenuModal={showMenuModal} toggleMenuModal={toggleMenuModal} />
+				<DashboardNavbar
+					toggleMenuModal={toggleMenuModal}
+					showNewNotifications={showNewNotifications}
+					showProfileMenu={showProfileMenu}
+					toggleProfileMenu={toggleProfileMenu}
+					toggleNewNotificationList={toggleNewNotificationList}
+				/>
+				<DashboardSideMenu showUserMenu={showUserMenu} setShowUserMenu={setShowUserMenu} />
+				<section className={showUserMenu ? 'section-left-margin' : ''}><Outlet context={{ isDarkMode: isDarkMode }}/></section>
+			</DashboardLayoutWrapper>
+		</DashboardContext.Provider>
 	);
+	
 };
 
+export const useDashboardContext = () => useContext(DashboardContext);
 export default DashboardLayout;
